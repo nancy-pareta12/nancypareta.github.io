@@ -45,6 +45,16 @@
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
+  /* ─── SCROLL PROGRESS BAR ─── */
+  #scroll-progress {
+    position: fixed; top: 0; left: 0;
+    height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--teal), var(--accent2));
+    z-index: 300;
+    transition: width .12s ease-out;
+    box-shadow: 0 0 12px rgba(124,106,247,.6);
+  }
+
   /* ─── NAV ─── */
   nav {
     position: fixed; top: 0; left: 0; right: 0;
@@ -60,17 +70,43 @@
     font-weight: 800; font-size: 1.1rem;
     color: var(--teal);
     letter-spacing: -.02em;
+    animation: fadeUp .5s ease both;
   }
   .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links li {
+    opacity: 0; transform: translateY(-8px);
+    animation: fadeDown .5s ease forwards;
+  }
+  .nav-links li:nth-child(1) { animation-delay: .05s; }
+  .nav-links li:nth-child(2) { animation-delay: .1s; }
+  .nav-links li:nth-child(3) { animation-delay: .15s; }
+  .nav-links li:nth-child(4) { animation-delay: .2s; }
+  .nav-links li:nth-child(5) { animation-delay: .25s; }
+  .nav-links li:nth-child(6) { animation-delay: .3s; }
+  .nav-links li:nth-child(7) { animation-delay: .35s; }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
   .nav-links a {
+    position: relative;
     color: var(--muted);
     text-decoration: none;
     font-size: .75rem;
     letter-spacing: .12em;
     text-transform: uppercase;
     transition: color .2s;
+    padding-bottom: .3rem;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; left: 0; bottom: 0;
+    width: 0; height: 1px;
+    background: linear-gradient(90deg, var(--teal), var(--accent2));
+    transition: width .25s ease;
   }
   .nav-links a:hover { color: var(--teal); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a.active { color: var(--teal); }
+  .nav-links a.active::after { width: 100%; }
 
   /* ─── HERO ─── */
   #hero {
@@ -88,12 +124,24 @@
     filter: blur(120px);
     pointer-events: none;
   }
-  .glow-1 { background: rgba(124,106,247,.18); top: -200px; right: -100px; }
-  .glow-2 { background: rgba(15,244,198,.1); bottom: -200px; left: -100px; }
+  .glow-1 { background: rgba(124,106,247,.18); top: -200px; right: -100px; animation: floatBlob1 12s ease-in-out infinite alternate; }
+  .glow-2 { background: rgba(15,244,198,.1); bottom: -200px; left: -100px; animation: floatBlob2 14s ease-in-out infinite alternate; }
+
+  @keyframes floatBlob1 {
+    0%   { transform: translate(0,0) scale(1); }
+    50%  { transform: translate(-50px, 60px) scale(1.12); }
+    100% { transform: translate(30px, -30px) scale(.95); }
+  }
+  @keyframes floatBlob2 {
+    0%   { transform: translate(0,0) scale(1); }
+    50%  { transform: translate(60px, -40px) scale(1.1); }
+    100% { transform: translate(-30px, 30px) scale(.92); }
+  }
 
   .hero-inner {
     max-width: 1200px; margin: 0 auto; width: 100%;
     display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    position: relative; z-index: 1;
   }
 
   .hero-tag {
@@ -125,9 +173,16 @@
     animation: fadeUp .6s .1s ease both;
   }
   h1 .name-accent {
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--teal) 100%);
+    background-size: 200% auto;
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
+    animation: gradientShift 6s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
   }
 
   .hero-sub {
@@ -144,6 +199,8 @@
   }
 
   .btn-primary {
+    position: relative;
+    overflow: hidden;
     padding: .75rem 1.6rem;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     color: #fff; border: none; border-radius: .4rem;
@@ -152,6 +209,15 @@
     letter-spacing: .06em;
     transition: transform .2s, box-shadow .2s;
   }
+  .btn-primary::before {
+    content: '';
+    position: absolute; top: 0; left: -75%;
+    width: 50%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,.45), transparent);
+    transform: skewX(-20deg);
+    transition: left .55s ease;
+  }
+  .btn-primary:hover::before { left: 125%; }
   .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 32px rgba(124,106,247,.4);
@@ -164,9 +230,9 @@
     font-family: var(--font-mono); font-size: .8rem;
     cursor: pointer; text-decoration: none;
     letter-spacing: .06em;
-    transition: border-color .2s, color .2s;
+    transition: border-color .2s, color .2s, transform .2s;
   }
-  .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+  .btn-ghost:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
 
   /* HERO RIGHT — terminal card */
   .terminal {
@@ -174,7 +240,11 @@
     border: 1px solid var(--border);
     border-radius: .8rem;
     overflow: hidden;
-    animation: fadeUp .6s .15s ease both;
+    animation: fadeUp .6s .15s ease both, floatCard 6s ease-in-out 1.2s infinite;
+  }
+  @keyframes floatCard {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
   }
   .terminal-bar {
     background: var(--surface);
@@ -191,6 +261,25 @@
     font-size: .7rem; color: var(--muted); letter-spacing: .1em;
   }
   .terminal-body { padding: 1.5rem; font-size: .78rem; line-height: 2; }
+  .terminal-body > div {
+    opacity: 0;
+    animation: typeLine .4s ease forwards;
+  }
+  .terminal-body > div:nth-child(1)  { animation-delay: .3s; }
+  .terminal-body > div:nth-child(2)  { animation-delay: .45s; }
+  .terminal-body > div:nth-child(3)  { animation-delay: .55s; }
+  .terminal-body > div:nth-child(4)  { animation-delay: .65s; }
+  .terminal-body > div:nth-child(5)  { animation-delay: .75s; }
+  .terminal-body > div:nth-child(6)  { animation-delay: .85s; }
+  .terminal-body > div:nth-child(7)  { animation-delay: .95s; }
+  .terminal-body > div:nth-child(8)  { animation-delay: 1.05s; }
+  .terminal-body > div:nth-child(9)  { animation-delay: 1.15s; }
+  .terminal-body > div:nth-child(10) { animation-delay: 1.25s; }
+  .terminal-body > div:nth-child(11) { animation-delay: 1.4s; }
+  @keyframes typeLine {
+    from { opacity: 0; transform: translateX(-6px); }
+    to { opacity: 1; transform: none; }
+  }
   .t-prompt { color: var(--teal); }
   .t-cmd { color: var(--text); }
   .t-out { color: var(--muted); }
@@ -203,18 +292,57 @@
   }
   @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
 
+  /* ─── GENERIC SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1.visible { transition-delay: .08s; }
+  .reveal-delay-2.visible { transition-delay: .16s; }
+  .reveal-delay-3.visible { transition-delay: .24s; }
+
   /* ─── SECTION COMMON ─── */
-  section { padding: 6rem 3rem; position: relative; }
+  section { padding: 6rem 3rem; position: relative; scroll-margin-top: 84px; }
   .section-inner { max-width: 1200px; margin: 0 auto; }
   .section-label {
     font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
     color: var(--teal); margin-bottom: .8rem;
+    position: relative; display: inline-flex; align-items: center; gap: .6rem;
+  }
+  .section-label .sec-num {
+    color: var(--muted); opacity: .6; font-weight: 400;
   }
   .section-title {
     font-family: var(--font-display); font-weight: 800;
     font-size: clamp(2rem, 3.5vw, 2.8rem);
     letter-spacing: -.03em; margin-bottom: 3rem;
+    position: relative; display: inline-block;
   }
+  .section-title::after {
+    content: '';
+    position: absolute; left: 0; bottom: -.9rem;
+    width: 46px; height: 3px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--teal));
+  }
+
+  /* ─── BACK TO TOP ─── */
+  .back-to-top {
+    position: fixed; z-index: 200;
+    left: 1.5rem; bottom: 1.5rem;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    opacity: 0; visibility: hidden; transform: translateY(10px);
+    transition: opacity .25s, transform .25s, visibility .25s, border-color .2s;
+  }
+  .back-to-top.show { opacity: 1; visibility: visible; transform: none; }
+  .back-to-top:hover { border-color: var(--teal); transform: translateY(-3px); }
 
   /* ─── ABOUT ─── */
   #about { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -226,6 +354,12 @@
   .stat-box {
     border: 1px solid var(--border); border-radius: .6rem;
     padding: 1rem 1.4rem; flex: 1;
+    transition: border-color .25s, transform .25s, box-shadow .25s;
+  }
+  .stat-box:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(124,106,247,.18);
   }
   .stat-num {
     font-family: var(--font-display); font-weight: 800;
@@ -237,7 +371,7 @@
   .skills-grid { display: flex; flex-direction: column; gap: .8rem; }
   .skill-row { display: flex; align-items: center; gap: 1rem; }
   .skill-name { font-size: .75rem; color: var(--muted); width: 110px; flex-shrink: 0; letter-spacing: .05em; }
-  .skill-bar { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .skill-bar { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; position: relative; }
   .skill-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--accent), var(--teal));
@@ -245,9 +379,21 @@
     transform: scaleX(0); transform-origin: left;
     animation: fillBar 1s ease forwards;
     animation-play-state: paused;
+    position: relative;
+    overflow: hidden;
   }
   .skill-fill.visible { animation-play-state: running; }
+  .skill-fill::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 2.4s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+  .skill-fill.visible::after { animation-play-state: running; }
   @keyframes fillBar { to { transform: scaleX(1); } }
+  @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
   /* ─── EXPERIENCE ─── */
   .timeline { position: relative; padding-left: 2rem; }
@@ -267,6 +413,12 @@
     background: var(--accent); border: 2px solid var(--bg);
     box-shadow: 0 0 10px rgba(124,106,247,.6);
   }
+  .tl-item.visible .tl-dot { animation: dotPop .5s ease .1s both, dotGlow 2.4s ease-in-out 1s infinite; }
+  @keyframes dotPop { from { transform: scale(0); } to { transform: scale(1); } }
+  @keyframes dotGlow {
+    0%,100% { box-shadow: 0 0 10px rgba(124,106,247,.6); }
+    50% { box-shadow: 0 0 20px rgba(224,92,247,.8); }
+  }
   .tl-company {
     font-family: var(--font-display); font-weight: 700;
     font-size: 1.1rem; color: var(--text);
@@ -284,7 +436,9 @@
     border: 1px solid rgba(124,106,247,.2);
     color: var(--accent); border-radius: .3rem;
     letter-spacing: .05em;
+    transition: background .2s, transform .2s;
   }
+  .tag:hover { background: rgba(124,106,247,.28); transform: translateY(-2px); }
 
   /* ─── PROJECTS ─── */
   #projects { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -294,15 +448,14 @@
     border-radius: .8rem; padding: 1.8rem;
     position: relative; overflow: hidden;
     cursor: pointer;
-    transition: border-color .2s, transform .2s, box-shadow .2s;
+    will-change: transform;
     opacity: 0; transform: translateY(20px);
-    transition: opacity .4s, transform .4s, border-color .2s, box-shadow .2s;
+    transition: opacity .4s, transform .15s ease-out, border-color .2s, box-shadow .2s;
   }
   .project-card.visible { opacity: 1; transform: none; }
   .project-card:hover {
     border-color: var(--accent);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(124,106,247,.15);
+    box-shadow: 0 16px 44px rgba(124,106,247,.2);
   }
   .project-card::before {
     content: '';
@@ -318,7 +471,9 @@
     font-size: 1.2rem; margin-bottom: 1.1rem;
     background: rgba(124,106,247,.1);
     border: 1px solid rgba(124,106,247,.15);
+    transition: transform .3s ease;
   }
+  .project-card:hover .project-icon { transform: rotate(-8deg) scale(1.1); }
   .project-title {
     font-family: var(--font-display); font-weight: 700;
     font-size: 1rem; color: var(--text); margin-bottom: .5rem;
@@ -330,7 +485,9 @@
     background: rgba(15,244,198,.08);
     border: 1px solid rgba(15,244,198,.15);
     color: var(--teal); border-radius: .25rem;
+    transition: background .2s;
   }
+  .project-tag:hover { background: rgba(15,244,198,.22); }
 
   /* ─── SKILLS SECTION ─── */
   .tech-cloud { display: flex; flex-wrap: wrap; gap: .8rem; }
@@ -339,12 +496,13 @@
     background: var(--card); border: 1px solid var(--border);
     border-radius: 2rem; font-size: .78rem; color: var(--muted);
     letter-spacing: .04em;
-    transition: background .2s, color .2s, border-color .2s;
+    transition: background .2s, color .2s, border-color .2s, transform .2s;
     cursor: default;
   }
   .tech-pill:hover {
     background: rgba(124,106,247,.1);
     border-color: var(--accent); color: var(--accent);
+    transform: translateY(-3px) scale(1.04);
   }
 
   /* ─── CONTACT ─── */
@@ -358,10 +516,10 @@
     border: 1px solid var(--border); border-radius: .4rem;
     font-family: var(--font-mono); font-size: .78rem;
     color: var(--muted); text-decoration: none;
-    transition: border-color .2s, color .2s;
+    transition: border-color .2s, color .2s, transform .2s;
     letter-spacing: .06em;
   }
-  .contact-link:hover { border-color: var(--teal); color: var(--teal); }
+  .contact-link:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-3px); }
   .contact-link svg { width: 16px; height: 16px; fill: currentColor; }
 
   /* ─── FOOTER ─── */
@@ -392,6 +550,15 @@
     .chat-toggle { right: 1rem; bottom: 1rem; }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   /* ─── INTERVIEW CHATBOT ─── */
   .chat-toggle {
     position: fixed; z-index: 200;
@@ -406,8 +573,13 @@
     box-shadow: 0 8px 32px rgba(124,106,247,.45);
     transition: transform .2s, box-shadow .2s;
     font-size: 1.35rem;
+    animation: chatPulse 2.6s ease-in-out infinite;
   }
-  .chat-toggle:hover { transform: scale(1.06); }
+  @keyframes chatPulse {
+    0%,100% { box-shadow: 0 8px 32px rgba(124,106,247,.45); }
+    50% { box-shadow: 0 8px 46px rgba(224,92,247,.65); }
+  }
+  .chat-toggle:hover { transform: scale(1.08); animation-play-state: paused; }
   .chat-toggle[aria-expanded="true"] { opacity: 0; pointer-events: none; }
 
   .chat-panel {
@@ -450,7 +622,12 @@
     display: flex; flex-direction: column; gap: .85rem;
     font-size: .78rem; line-height: 1.65;
   }
-  .chat-msg { max-width: 100%; padding: .75rem .9rem; border-radius: .55rem; }
+  .chat-msg {
+    max-width: 100%; padding: .75rem .9rem; border-radius: .55rem;
+    opacity: 0; transform: translateY(8px);
+    animation: msgIn .3s ease forwards;
+  }
+  @keyframes msgIn { to { opacity: 1; transform: none; } }
   .chat-msg.bot {
     background: rgba(124,106,247,.1);
     border: 1px solid rgba(124,106,247,.2);
@@ -464,6 +641,15 @@
     color: var(--text);
     align-self: flex-end;
   }
+  .chat-typing { display: inline-flex; gap: 3px; align-self: flex-start; padding: .75rem .9rem; }
+  .chat-typing span {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--muted);
+    animation: typingDot 1s ease-in-out infinite;
+  }
+  .chat-typing span:nth-child(2) { animation-delay: .15s; }
+  .chat-typing span:nth-child(3) { animation-delay: .3s; }
+  @keyframes typingDot { 0%,60%,100% { opacity: .3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
   .chat-disclaimer {
     font-size: .62rem; color: var(--muted); opacity: .85;
     padding: 0 .25rem .5rem;
@@ -483,9 +669,9 @@
     border-radius: 2rem;
     cursor: pointer;
     letter-spacing: .04em;
-    transition: border-color .2s, color .2s;
+    transition: border-color .2s, color .2s, transform .2s;
   }
-  .chat-chip:hover { border-color: var(--accent); color: var(--accent); }
+  .chat-chip:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
   .chat-input-row {
     padding: .75rem 1rem 1rem;
@@ -502,6 +688,7 @@
     color: var(--text);
     font-family: var(--font-mono);
     font-size: .75rem;
+    transition: border-color .2s;
   }
   .chat-input-row input:focus {
     outline: none;
@@ -514,11 +701,15 @@
     color: #fff; font-family: var(--font-mono); font-size: .72rem;
     cursor: pointer; letter-spacing: .06em;
     white-space: nowrap;
+    transition: transform .15s;
   }
+  .chat-input-row button[type="submit"]:hover { transform: translateY(-2px); }
   .chat-input-row button[type="submit"]:disabled { opacity: .5; cursor: not-allowed; }
 </style>
 </head>
 <body>
+
+<div id="scroll-progress"></div>
 
 <!-- NAV -->
 <nav>
@@ -587,38 +778,38 @@
   <div class="section-inner">
     <div class="about-grid">
       <div class="about-text">
-        <div class="section-label">// about</div>
-        <h2 class="section-title">Building data<br>systems that scale</h2>
-        <p>
+        <div class="section-label reveal">// about</div>
+        <h2 class="section-title reveal">Building data<br>systems that scale</h2>
+        <p class="reveal">
           I'm a <strong>Lead Data Engineer at McKinsey & Company</strong>, Gurugram, with 5+ years of experience building robust, scalable data pipelines for ingesting, transforming, and storing data from multiple structured and unstructured sources.
         </p>
-        <p>
+        <p class="reveal">
           I specialise in <strong>cloud-based data platforms (MS Fabric, Azure, GCP)</strong> with deep domain expertise in <strong>Manufacturing and Supply Chain</strong> and <strong>Capital Projects</strong>. I also lead PMO governance for large-scale cloud programs.
         </p>
-        <p>
+        <p class="reveal">
           I work with <strong>generative AI</strong> and <strong>LLMs</strong> — using <strong>Cursor</strong> and <strong>ChatGPT</strong> to accelerate delivery — and I build <strong>AI agents</strong> for <strong>recommendations</strong>, <strong>reviewing code changes</strong>, <strong>documentation</strong>, and <strong>validation with source-to-target mapping</strong> across complex data estates.
         </p>
-        <p>
+        <p class="reveal">
           M.Tech (CS) from <strong>Punjab Engineering College</strong> with a 9.61 CGPA, ranked 2nd in class. B.Tech from <strong>PGDAV, Delhi University</strong> — Top 20% of batch. Rewarded Best Performer &amp; Exceptional Impact <strong>8+ times</strong>.
         </p>
         <div class="stats-row">
-          <div class="stat-box">
-            <div class="stat-num">5+</div>
+          <div class="stat-box reveal">
+            <div class="stat-num" data-target="5" data-suffix="+">0</div>
             <div class="stat-label">Years at McKinsey</div>
           </div>
-          <div class="stat-box">
-            <div class="stat-num">8+</div>
+          <div class="stat-box reveal reveal-delay-1">
+            <div class="stat-num" data-target="8" data-suffix="+">0</div>
             <div class="stat-label">Best Performer Awards</div>
           </div>
-          <div class="stat-box">
-            <div class="stat-num">4</div>
+          <div class="stat-box reveal reveal-delay-2">
+            <div class="stat-num" data-target="4" data-suffix="">0</div>
             <div class="stat-label">Cloud Platforms</div>
           </div>
         </div>
       </div>
 
       <div class="skills-grid">
-        <div class="section-label" style="margin-bottom:1.2rem">// proficiency</div>
+        <div class="section-label reveal" style="margin-bottom:1.2rem">// proficiency</div>
         <div class="skill-row"><span class="skill-name">PySpark / SQL</span><div class="skill-bar"><div class="skill-fill" style="animation-delay:.0s" data-width=".97"></div></div></div>
         <div class="skill-row"><span class="skill-name">Azure Databricks</span><div class="skill-bar"><div class="skill-fill" style="animation-delay:.1s" data-width=".95"></div></div></div>
         <div class="skill-row"><span class="skill-name">Azure ADF</span><div class="skill-bar"><div class="skill-fill" style="animation-delay:.2s" data-width=".93"></div></div></div>
@@ -636,8 +827,8 @@
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="section-inner">
-    <div class="section-label">// experience</div>
-    <h2 class="section-title">Career journey</h2>
+    <div class="section-label reveal">// experience</div>
+    <h2 class="section-title reveal">Career journey</h2>
     <div class="timeline">
 
       <div class="tl-item">
@@ -668,7 +859,10 @@
           <span class="tag">Great Expectations</span>
           <span class="tag">GCP</span>
           <span class="tag">LLMs &amp; AI agents</span>
-          <span class="tag">Cursor / ChatGPT</span>
+          <span class="tag">RAG</span>
+          <span class="tag">DuckDB / DuckLake</span>
+          <span class="tag">Gemini Enterprise / ADK</span>
+          <span class="tag">Cursor / ChatGPT / Claude</span>
           <span class="tag">Team Leadership (7+)</span>
         </div>
       </div>
@@ -698,8 +892,8 @@
 <!-- PROJECTS -->
 <section id="projects">
   <div class="section-inner">
-    <div class="section-label">// projects</div>
-    <h2 class="section-title">Featured work</h2>
+    <div class="section-label reveal">// projects</div>
+    <h2 class="section-title reveal">Featured work</h2>
     <div class="projects-grid">
 
       <div class="project-card">
@@ -714,7 +908,43 @@
           <span class="project-tag">AI agents</span>
           <span class="project-tag">Cursor</span>
           <span class="project-tag">ChatGPT</span>
+          <span class="project-tag">Claude</span>
           <span class="project-tag">S↔T mapping</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">🧩</div>
+        <div class="project-title">Agentic Data Wrangling &amp; Validation Tool</div>
+        <div class="project-desc">
+          Internal tool powered by three agentic workflows — data cleaning, data mapping &amp; processing, and
+          data validation — using LLM-driven agents to automate end-to-end wrangling of messy, heterogeneous
+          client datasets, with a RAG-backed chatbot for querying pipeline outputs and DuckDB / DuckLake for
+          fast embedded analytical querying.
+        </div>
+        <div class="project-footer">
+          <span class="project-tag">Agentic workflows</span>
+          <span class="project-tag">RAG chatbot</span>
+          <span class="project-tag">DuckDB</span>
+          <span class="project-tag">DuckLake</span>
+          <span class="project-tag">LLMs</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">🏗️</div>
+        <div class="project-title">Control Tower for Construction &amp; Infrastructure</div>
+        <div class="project-desc">
+          Databricks-based Control Tower deployed to 10+ clients across Azure and GCP cloud environments;
+          models run data ingestion and processing and calculate KPIs, storing final transformed data
+          connected to Power BI dashboards for real-time visibility.
+        </div>
+        <div class="project-footer">
+          <span class="project-tag">Databricks</span>
+          <span class="project-tag">Azure</span>
+          <span class="project-tag">GCP</span>
+          <span class="project-tag">KPIs</span>
+          <span class="project-tag">Power BI</span>
         </div>
       </div>
 
@@ -821,10 +1051,10 @@
 <!-- SKILLS -->
 <section id="skills">
   <div class="section-inner">
-    <div class="section-label">// tech stack</div>
-    <h2 class="section-title">Technologies I work with</h2>
+    <div class="section-label reveal">// tech stack</div>
+    <h2 class="section-title reveal">Technologies I work with</h2>
     <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 2.5rem;">
-      <div>
+      <div class="reveal">
         <div style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem">Gen AI &amp; agents</div>
         <div class="tech-cloud">
           <span class="tech-pill">LLMs</span>
@@ -834,11 +1064,16 @@
           <span class="tech-pill">Code-review agents</span>
           <span class="tech-pill">Documentation agents</span>
           <span class="tech-pill">Validation &amp; S↔T mapping</span>
+          <span class="tech-pill">RAG</span>
+          <span class="tech-pill">Gemini Enterprise</span>
+          <span class="tech-pill">Agent Development Kits (ADK)</span>
+          <span class="tech-pill">AI Strategy Advisory</span>
           <span class="tech-pill">Cursor</span>
           <span class="tech-pill">ChatGPT</span>
+          <span class="tech-pill">Claude</span>
         </div>
       </div>
-      <div>
+      <div class="reveal">
         <div style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem">Processing & Query</div>
         <div class="tech-cloud">
           <span class="tech-pill">PySpark</span>
@@ -848,7 +1083,7 @@
           <span class="tech-pill">Spark Streaming</span>
         </div>
       </div>
-      <div>
+      <div class="reveal">
         <div style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem">Cloud & Infrastructure</div>
         <div class="tech-cloud">
           <span class="tech-pill">Azure</span>
@@ -861,7 +1096,7 @@
           <span class="tech-pill">Blob Storage</span>
         </div>
       </div>
-      <div>
+      <div class="reveal">
         <div style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem">Storage & Lakehouse</div>
         <div class="tech-cloud">
           <span class="tech-pill">Delta Lake</span>
@@ -869,9 +1104,11 @@
           <span class="tech-pill">MS SQL Server</span>
           <span class="tech-pill">Azure Data Lake</span>
           <span class="tech-pill">Lakehouse</span>
+          <span class="tech-pill">DuckDB</span>
+          <span class="tech-pill">DuckLake</span>
         </div>
       </div>
-      <div>
+      <div class="reveal">
         <div style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem">ETL & Orchestration</div>
         <div class="tech-cloud">
           <span class="tech-pill">Azure Data Factory</span>
@@ -881,7 +1118,7 @@
           <span class="tech-pill">Great Expectations</span>
         </div>
       </div>
-      <div>
+      <div class="reveal">
         <div style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem">Visualisation & BI</div>
         <div class="tech-cloud">
           <span class="tech-pill">Power BI</span>
@@ -889,7 +1126,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="reveal">
         <div style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem">DevOps & Tools</div>
         <div class="tech-cloud">
           <span class="tech-pill">Git</span>
@@ -903,55 +1140,55 @@
 <!-- CAREER TRAJECTORY -->
 <section id="trajectory" style="border-top: 1px solid var(--border);">
   <div class="section-inner">
-    <div class="section-label">// career trajectory</div>
-    <h2 class="section-title">How I got here</h2>
+    <div class="section-label reveal">// career trajectory</div>
+    <h2 class="section-title reveal">How I got here</h2>
     <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items:start;">
       <div>
-        <p style="color:var(--muted);font-size:.85rem;line-height:1.9;margin-bottom:1rem;">
+        <p class="reveal" style="color:var(--muted);font-size:.85rem;line-height:1.9;margin-bottom:1rem;">
           My journey started with a <strong style="color:var(--text)">B.Tech in Computer Science from Delhi University</strong> (Top 20% of batch).
         </p>
-        <p style="color:var(--muted);font-size:.85rem;line-height:1.9;margin-bottom:1rem;">
+        <p class="reveal" style="color:var(--muted);font-size:.85rem;line-height:1.9;margin-bottom:1rem;">
           I went on to complete an <strong style="color:var(--text)">M.Tech from Punjab Engineering College</strong> with a 9.61 CGPA, ranked 2nd in class, and served as Placement Head — building the coordination and communication skills that define my leadership style today.
         </p>
-        <p style="color:var(--muted);font-size:.85rem;line-height:1.9;margin-bottom:1rem;">
+        <p class="reveal" style="color:var(--muted);font-size:.85rem;line-height:1.9;margin-bottom:1rem;">
           A data engineering internship at <strong style="color:var(--text)">Snapdeal</strong> gave me early hands-on experience with large-scale ETL and customer behaviour analytics. Shortly after, I joined <strong style="color:var(--text)">McKinsey & Company</strong> in 2021 — where I've been building and leading ever since.
         </p>
-        <p style="color:var(--muted);font-size:.85rem;line-height:1.9;">
+        <p class="reveal" style="color:var(--muted);font-size:.85rem;line-height:1.9;">
           At McKinsey, I grew from delivering pipelines to <strong style="color:var(--text)">leading a team of 7+ data engineers</strong>, spanning domains of Manufacturing, Supply Chain, and Capital Projects. My cloud journey expanded from Azure mastery into <strong style="color:var(--text)">GCP and MS Fabric</strong> — each transition backed by certifications and real production deployments. I’ve layered in <strong style="color:var(--text)">Gen AI</strong>: <strong style="color:var(--text)">LLM agents</strong> for recommendations, code review, docs, and source–target validation, using tools like <strong style="color:var(--text)">Cursor</strong> and <strong style="color:var(--text)">ChatGPT</strong>.
         </p>
       </div>
       <div>
-        <div style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1.2rem">Key milestones</div>
+        <div class="reveal" style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1.2rem">Key milestones</div>
         <div style="display:flex;flex-direction:column;gap:.8rem;">
-          <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <div class="reveal" style="display:flex;gap:1rem;align-items:flex-start;">
             <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(124,106,247,.12);border:1px solid rgba(124,106,247,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;">🎓</div>
             <div><div style="font-size:.8rem;color:var(--text);">B.Tech CS — PGDAV, Delhi University</div><div style="font-size:.7rem;color:var(--muted);margin-top:.2rem;">2017 · Top 20% · Best Performer 8+ times</div></div>
           </div>
-          <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <div class="reveal" style="display:flex;gap:1rem;align-items:flex-start;">
             <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(124,106,247,.12);border:1px solid rgba(124,106,247,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;">🎓</div>
             <div><div style="font-size:.8rem;color:var(--text);">M.Tech CS — Punjab Engineering College</div><div style="font-size:.7rem;color:var(--muted);margin-top:.2rem;">2021 · 9.61 CGPA · Ranked 2nd · Placement Head</div></div>
           </div>
-          <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <div class="reveal" style="display:flex;gap:1rem;align-items:flex-start;">
             <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(15,244,198,.08);border:1px solid rgba(15,244,198,.15);display:flex;align-items:center;justify-content:center;font-size:.9rem;">🛒</div>
             <div><div style="font-size:.8rem;color:var(--text);">Data Engineering Intern — Snapdeal</div><div style="font-size:.7rem;color:var(--muted);margin-top:.2rem;">Sep–Dec 2020 · ETL, customer analytics</div></div>
           </div>
-          <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <div class="reveal" style="display:flex;gap:1rem;align-items:flex-start;">
             <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(15,244,198,.08);border:1px solid rgba(15,244,198,.15);display:flex;align-items:center;justify-content:center;font-size:.9rem;">📈</div>
             <div><div style="font-size:.8rem;color:var(--text);">Joined McKinsey & Company</div><div style="font-size:.7rem;color:var(--muted);margin-top:.2rem;">Jan 2021 · Azure · Pipelines · Lakehouse</div></div>
           </div>
-          <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <div class="reveal" style="display:flex;gap:1rem;align-items:flex-start;">
             <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(15,244,198,.08);border:1px solid rgba(15,244,198,.15);display:flex;align-items:center;justify-content:center;font-size:.9rem;">☁️</div>
             <div><div style="font-size:.8rem;color:var(--text);">Expanded to GCP — certified</div><div style="font-size:.7rem;color:var(--muted);margin-top:.2rem;">Deep-dived GCP ecosystem alongside Azure expertise</div></div>
           </div>
-          <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <div class="reveal" style="display:flex;gap:1rem;align-items:flex-start;">
             <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(224,92,247,.1);border:1px solid rgba(224,92,247,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;">🧱</div>
             <div><div style="font-size:.8rem;color:var(--text);">Adopted Microsoft Fabric</div><div style="font-size:.7rem;color:var(--muted);margin-top:.2rem;">OneLake · Fabric Pipelines · DataFlows · Notebooks</div></div>
           </div>
-          <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <div class="reveal" style="display:flex;gap:1rem;align-items:flex-start;">
             <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(224,92,247,.1);border:1px solid rgba(224,92,247,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;">🧠</div>
             <div><div style="font-size:.8rem;color:var(--text);">Gen AI &amp; LLM agents</div><div style="font-size:.7rem;color:var(--muted);margin-top:.2rem;">Recommendations · code review · docs · S↔T validation · Cursor · ChatGPT</div></div>
           </div>
-          <div style="display:flex;gap:1rem;align-items:flex-start;">
+          <div class="reveal" style="display:flex;gap:1rem;align-items:flex-start;">
             <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(224,92,247,.1);border:1px solid rgba(224,92,247,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;">👩‍💼</div>
             <div><div style="font-size:.8rem;color:var(--text);">Promoted to Data Engineering Lead</div><div style="font-size:.7rem;color:var(--muted);margin-top:.2rem;">Managing 7+ engineers · Mfg & Supply Chain domain</div></div>
           </div>
@@ -964,14 +1201,22 @@
 <!-- CERTIFICATIONS -->
 <section id="certifications" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
   <div class="section-inner">
-    <div class="section-label">// certifications & education</div>
-    <h2 class="section-title">Credentials</h2>
+    <div class="section-label reveal">// certifications & education</div>
+    <h2 class="section-title reveal">Credentials</h2>
     <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
 
       <div>
-        <div style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem">Certifications</div>
+        <div class="reveal" style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem">Certifications</div>
         <div style="display:flex;flex-direction:column;gap:1rem;">
-          <div style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;">
+          <div class="reveal" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:transform .25s, border-color .25s;">
+            <span style="font-size:1.4rem">🧠</span>
+            <div>
+              <div style="font-size:.82rem;color:var(--text);font-weight:600">Claude Certified Developer – Foundations (CCDV-F)</div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:.2rem">Anthropic</div>
+              <div style="font-size:.68rem;color:var(--teal);margin-top:.3rem;">Foundations of building with Claude — prompting, tool use, and agentic workflows</div>
+            </div>
+          </div>
+          <div class="reveal" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:transform .25s, border-color .25s;">
             <span style="font-size:1.4rem">☁️</span>
             <div>
               <div style="font-size:.82rem;color:var(--text);font-weight:600">Google Cloud Platform (GCP) Fundamentals for Beginners</div>
@@ -979,7 +1224,7 @@
               <div style="font-size:.68rem;color:var(--teal);margin-top:.3rem;">Part of a broader GCP certification journey — deepening expertise across the GCP ecosystem</div>
             </div>
           </div>
-          <div style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;">
+          <div class="reveal" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:transform .25s, border-color .25s;">
             <span style="font-size:1.4rem">⚡</span>
             <div>
               <div style="font-size:.82rem;color:var(--text);font-weight:600">Azure Databricks &amp; Spark Core For Data Engineers (Python/SQL)</div>
@@ -987,7 +1232,7 @@
               <div style="font-size:.68rem;color:var(--teal);margin-top:.3rem;">Covers Spark architecture, Delta Lake, structured streaming, and ADF integration</div>
             </div>
           </div>
-          <div style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;">
+          <div class="reveal" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:transform .25s, border-color .25s;">
             <span style="font-size:1.4rem">🏆</span>
             <div>
               <div style="font-size:.82rem;color:var(--text);font-weight:600">HackerRank: Python Intermediate</div>
@@ -995,7 +1240,7 @@
               <div style="font-size:.68rem;color:var(--teal);margin-top:.3rem;">Validated proficiency in Python — data structures, OOP, and functional programming</div>
             </div>
           </div>
-          <div style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;">
+          <div class="reveal" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:transform .25s, border-color .25s;">
             <span style="font-size:1.4rem">🗄️</span>
             <div>
               <div style="font-size:.82rem;color:var(--text);font-weight:600">HackerRank: SQL Intermediate</div>
@@ -1003,7 +1248,7 @@
               <div style="font-size:.68rem;color:var(--teal);margin-top:.3rem;">Validated SQL proficiency — complex joins, window functions, and query optimisation</div>
             </div>
           </div>
-          <div style="background:var(--card);border:1px solid var(--border);border-left: 2px solid var(--accent);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;">
+          <div class="reveal" style="background:var(--card);border:1px solid var(--border);border-left: 2px solid var(--accent);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:transform .25s, border-color .25s;">
             <span style="font-size:1.4rem">🔗</span>
             <div>
               <div style="font-size:.78rem;color:var(--muted);">View all certifications on LinkedIn</div>
@@ -1014,9 +1259,9 @@
       </div>
 
       <div>
-        <div style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem">Education</div>
+        <div class="reveal" style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem">Education</div>
         <div style="display:flex;flex-direction:column;gap:1rem;">
-          <div style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;">
+          <div class="reveal" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;transition:transform .25s, border-color .25s;">
             <div style="font-size:.82rem;color:var(--text);font-weight:600">M.Tech — Computer Science</div>
             <div style="font-size:.75rem;color:var(--teal);margin-top:.2rem">Punjab Engineering College · 2021</div>
             <div style="font-size:.72rem;color:var(--muted);margin-top:.4rem;line-height:1.7">
@@ -1025,7 +1270,7 @@
               Coursework: Deep Learning (2021)
             </div>
           </div>
-          <div style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;">
+          <div class="reveal" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;transition:transform .25s, border-color .25s;">
             <div style="font-size:.82rem;color:var(--text);font-weight:600">B.Tech — Computer Science</div>
             <div style="font-size:.75rem;color:var(--teal);margin-top:.2rem">PGDAV, Delhi University · 2017</div>
             <div style="font-size:.72rem;color:var(--muted);margin-top:.4rem;line-height:1.7">
@@ -1033,6 +1278,13 @@
               Supervised team of 10+ staff members<br/>
               Documented &amp; resolved 700+ issues → highest revenue product<br/>
               Best Performer &amp; Exceptional Impact — 8+ times
+            </div>
+          </div>
+          <div class="reveal" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;transition:transform .25s, border-color .25s;">
+            <div style="font-size:.82rem;color:var(--text);font-weight:600">Achievements &amp; Test Scores</div>
+            <div style="font-size:.72rem;color:var(--muted);margin-top:.4rem;line-height:1.7">
+              GATE (Graduate Aptitude Test in Engineering) 2019 — 94.54 percentile<br/>
+              Guild Champion Gold badge
             </div>
           </div>
         </div>
@@ -1045,13 +1297,13 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-inner">
-    <div class="section-label">// contact</div>
-    <h2 class="section-title">Let's connect</h2>
-    <p class="contact-sub">
+    <div class="section-label reveal">// contact</div>
+    <h2 class="section-title reveal">Let's connect</h2>
+    <p class="contact-sub reveal">
       Whether you have an exciting data challenge, want to collaborate on a project,
       or just want to talk shop about data engineering — my inbox is open.
     </p>
-    <div class="contact-links">
+    <div class="contact-links reveal">
       <a href="https://github.com/nancypareta" target="_blank" class="contact-link">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
         GitHub
@@ -1104,7 +1356,7 @@
     });
   }, { threshold: 0.15 });
 
-  document.querySelectorAll('.tl-item, .project-card, .skill-fill').forEach(el => {
+  document.querySelectorAll('.tl-item, .project-card, .skill-fill, .reveal').forEach(el => {
     observer.observe(el);
   });
 
@@ -1118,6 +1370,66 @@
   document.querySelectorAll('.project-card').forEach((card, i) => {
     card.style.transitionDelay = (i * 0.08) + 's';
   });
+
+  // ─── Scroll progress bar ───
+  (function initScrollProgress() {
+    const bar = document.getElementById('scroll-progress');
+    function update() {
+      const h = document.documentElement;
+      const scrollable = h.scrollHeight - h.clientHeight;
+      const pct = scrollable > 0 ? (h.scrollTop / scrollable) * 100 : 0;
+      bar.style.width = pct + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+
+  // ─── Animated stat counters ───
+  (function initCounters() {
+    const counters = document.querySelectorAll('.stat-num[data-target]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        if (el.dataset.counted) return;
+        el.dataset.counted = 'true';
+        const target = parseFloat(el.getAttribute('data-target')) || 0;
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 1200;
+        const start = performance.now();
+        function step(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = Math.round(target * eased);
+          el.textContent = value + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+          else el.textContent = target + suffix;
+        }
+        requestAnimationFrame(step);
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.4 });
+    counters.forEach(el => counterObserver.observe(el));
+  })();
+
+  // ─── Project card tilt-on-hover ───
+  (function initTilt() {
+    const cards = document.querySelectorAll('.project-card');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rotateX = ((y / rect.height) - 0.5) * -8;
+        const rotateY = ((x / rect.width) - 0.5) * 8;
+        card.style.transform = `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  })();
 
   // ─── Profile knowledge (grounded in portfolio copy) ───
   const PROFILE_CHUNKS = [
@@ -1403,6 +1715,16 @@
       messages.scrollTop = messages.scrollHeight;
     }
 
+    function showTyping() {
+      const div = document.createElement('div');
+      div.className = 'chat-typing';
+      div.id = 'chat-typing-indicator';
+      div.innerHTML = '<span></span><span></span><span></span>';
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+      return div;
+    }
+
     function botWelcome() {
       messages.innerHTML = '';
       const disc = document.createElement('div');
@@ -1436,7 +1758,11 @@
       if (!q) return;
       appendMsg(q.replace(/</g, '&lt;'), 'user');
       input.value = '';
-      appendMsg(composeReply(q), 'bot');
+      const typing = showTyping();
+      setTimeout(() => {
+        typing.remove();
+        appendMsg(composeReply(q), 'bot');
+      }, 450 + Math.random() * 350);
     });
 
     document.addEventListener('keydown', (e) => {
