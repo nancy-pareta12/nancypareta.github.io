@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:8080/ -->
+<html lang="en" class="motion-ready"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nancy Pareta — Lead Data Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./Nancy Pareta — Lead Data Engineer_files/css2" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #09090f;
+    --surface: #111118;
+    --card: #16161f;
+    --border: #1e1e2e;
+    --accent: #7c6af7;
+    --accent2: #e05cf7;
+    --teal: #0ff4c6;
+    --text: #e2e2ef;
+    --muted: #7a7a9a;
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE TEXTURE ─── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: .5;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+  /* ─── SCROLL PROGRESS BAR ─── */
+  #scroll-progress {
+    position: fixed; top: 0; left: 0;
+    height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--teal), var(--accent2));
+    z-index: 300;
+    transition: width .12s ease-out;
+    box-shadow: 0 0 12px rgba(124,106,247,.6);
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(9,9,15,.8);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 800; font-size:1.1rem;
+    color: var(--teal);
+    letter-spacing: -.02em;
+    animation: fadeUp .5s ease both;
+  }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links li {
+    opacity: 0; transform: translateY(-8px);
+    animation: fadeDown .5s ease forwards;
+  }
+  .nav-links li:nth-child(1) { animation-delay: .05s; }
+  .nav-links li:nth-child(2) { animation-delay: .1s; }
+  .nav-links li:nth-child(3) { animation-delay: .15s; }
+  .nav-links li:nth-child(4) { animation-delay: .2s; }
+  .nav-links li:nth-child(5) { animation-delay: .25s; }
+  .nav-links li:nth-child(6) { animation-delay: .3s; }
+  .nav-links li:nth-child(7) { animation-delay: .35s; }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
+  .nav-links a {
+    position: relative;
+    color: var(--muted);
+    text-decoration: none;
+    font-size:0.85rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    transition: color .2s;
+    padding-bottom: .3rem;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; left: 0; bottom: 0;
+    width: 0; height: 1px;
+    background: linear-gradient(90deg, var(--teal), var(--accent2));
+    transition: width .25s ease;
+  }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a.active { color: var(--teal); }
+  .nav-links a.active::after { width: 100%; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-glow {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+  }
+  .glow-1 { background: rgba(124,106,247,.18); top: -200px; right: -100px; animation: floatBlob1 12s ease-in-out infinite alternate; }
+  .glow-2 { background: rgba(15,244,198,.1); bottom: -200px; left: -100px; animation: floatBlob2 14s ease-in-out infinite alternate; }
+
+  @keyframes floatBlob1 {
+    0%   { transform: translate(0,0) scale(1); }
+    50%  { transform: translate(-50px, 60px) scale(1.12); }
+    100% { transform: translate(30px, -30px) scale(.95); }
+  }
+  @keyframes floatBlob2 {
+    0%   { transform: translate(0,0) scale(1); }
+    50%  { transform: translate(60px, -40px) scale(1.1); }
+    100% { transform: translate(-30px, 30px) scale(.92); }
+  }
+
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    position: relative; z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-size:0.85rem; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--teal);
+    border: 1px solid rgba(15,244,198,.25);
+    padding: .35rem .8rem; border-radius: 2rem;
+    margin-bottom: 1.8rem;
+    animation: fadeUp .6s ease both;
+  }
+  .hero-tag::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--teal); border-radius: 50%;
+    box-shadow: 0 0 8px var(--teal);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .4; transform: scale(.7); }
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 800; font-size: clamp(3rem, 5vw, 5rem);
+    line-height: .95;
+    letter-spacing: -.04em;
+    animation: fadeUp .6s .1s ease both;
+  }
+  h1 .name-accent {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--teal) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 6s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .hero-sub {
+    margin-top: 1.5rem;
+    font-size:0.9rem; line-height: 1.8;
+    color: var(--muted);
+    max-width: 440px;
+    animation: fadeUp .6s .2s ease both;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap;
+    animation: fadeUp .6s .3s ease both;
+  }
+
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+    padding: .75rem 1.6rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; border: none; border-radius: .4rem;
+    font-family: var(--font-mono); font-size:0.85rem;
+    cursor: pointer; text-decoration: none;
+    letter-spacing: .06em;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute; top: 0; left: -75%;
+    width: 50%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,.45), transparent);
+    transform: skewX(-20deg);
+    transition: left .55s ease;
+  }
+  .btn-primary:hover::before { left: 125%; }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(124,106,247,.4);
+  }
+
+  .btn-ghost {
+    padding: .75rem 1.6rem;
+    background: transparent;
+    color: var(--text); border: 1px solid var(--border); border-radius: .4rem;
+    font-family: var(--font-mono); font-size:0.85rem;
+    cursor: pointer; text-decoration: none;
+    letter-spacing: .06em;
+    transition: border-color .2s, color .2s, transform .2s;
+  }
+  .btn-ghost:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
+
+  /* HERO RIGHT — terminal card */
+  .terminal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: .8rem;
+    overflow: hidden;
+    animation: fadeUp .6s .15s ease both, floatCard 6s ease-in-out 1.2s infinite;
+  }
+  @keyframes floatCard {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .terminal-bar {
+    background: var(--surface);
+    padding: .7rem 1rem;
+    display: flex; align-items: center; gap: .5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+  .terminal-title {
+    margin-left: auto; margin-right: auto;
+    font-size:0.85rem; color: var(--muted); letter-spacing: .1em;
+  }
+  .terminal-body { padding: 1.5rem; font-size:0.85rem; line-height: 2; }
+  .terminal-body > div {
+    opacity: 0;
+    animation: typeLine .4s ease forwards;
+  }
+  .terminal-body > div:nth-child(1)  { animation-delay: .3s; }
+  .terminal-body > div:nth-child(2)  { animation-delay: .45s; }
+  .terminal-body > div:nth-child(3)  { animation-delay: .55s; }
+  .terminal-body > div:nth-child(4)  { animation-delay: .65s; }
+  .terminal-body > div:nth-child(5)  { animation-delay: .75s; }
+  .terminal-body > div:nth-child(6)  { animation-delay: .85s; }
+  .terminal-body > div:nth-child(7)  { animation-delay: .95s; }
+  .terminal-body > div:nth-child(8)  { animation-delay: 1.05s; }
+  .terminal-body > div:nth-child(9)  { animation-delay: 1.15s; }
+  .terminal-body > div:nth-child(10) { animation-delay: 1.25s; }
+  .terminal-body > div:nth-child(11) { animation-delay: 1.4s; }
+  @keyframes typeLine {
+    from { opacity: 0; transform: translateX(-6px); }
+    to { opacity: 1; transform: none; }
+  }
+  .t-prompt { color: var(--teal); }
+  .t-cmd { color: var(--text); }
+  .t-out { color: var(--muted); }
+  .t-val { color: var(--accent2); }
+  .t-key { color: var(--accent); }
+  .t-cursor {
+    display: inline-block; width: 8px; height: 14px;
+    background: var(--teal); margin-left: 2px; vertical-align: middle;
+    animation: blink .9s step-end infinite;
+  }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* ─── GENERIC SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1.visible { transition-delay: .08s; }
+  .reveal-delay-2.visible { transition-delay: .16s; }
+  .reveal-delay-3.visible { transition-delay: .24s; }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 6rem 3rem; position: relative; scroll-margin-top: 84px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-size:0.85rem; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: .8rem;
+    position: relative; display: inline-flex; align-items: center; gap: .6rem;
+  }
+  .section-label .sec-num {
+    color: var(--muted); opacity: .6; font-weight: 400;
+  }
+  .section-title {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    letter-spacing: -.03em; margin-bottom: 3rem;
+    position: relative; display: inline-block;
+  }
+  .section-title::after {
+    content: '';
+    position: absolute; left: 0; bottom: -.9rem;
+    width: 46px; height: 3px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--teal));
+  }
+
+  /* ─── BACK TO TOP ─── */
+  .back-to-top {
+    position: fixed; z-index: 200;
+    left: 1.5rem; bottom: 1.5rem;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    opacity: 0; visibility: hidden; transform: translateY(10px);
+    transition: opacity .25s, transform .25s, visibility .25s, border-color .2s;
+  }
+  .back-to-top.show { opacity: 1; visibility: visible; transform: none; }
+  .back-to-top:hover { border-color: var(--teal); transform: translateY(-3px); }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center; }
+  .about-text p { color: var(--muted); line-height: 1.9; font-size:0.85rem; margin-bottom: 1rem; }
+  .about-text p strong { color: var(--text); }
+
+  .stats-row { display: flex; gap: 2rem; margin-top: 2rem; }
+  .stat-box {
+    border: 1px solid var(--border); border-radius: .6rem;
+    padding: 1rem 1.4rem; flex: 1;
+    transition: border-color .25s, transform .25s, box-shadow .25s;
+  }
+  .stat-box:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(124,106,247,.18);
+  }
+  .stat-num {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: 2rem; color: var(--accent);
+  }
+  .stat-label { font-size:0.85rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-top: .2rem; }
+
+  /* skills grid */
+  .skills-grid { display: flex; flex-direction: column; gap: .8rem; }
+  .skill-row { display: flex; align-items: center; gap: 1rem; }
+  .skill-name { font-size:0.85rem; color: var(--muted); width: 110px; flex-shrink: 0; letter-spacing: .05em; }
+  .skill-bar { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; position: relative; }
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--teal));
+    border-radius: 2px;
+    transform: scaleX(0); transform-origin: left;
+    animation: fillBar 1s ease forwards;
+    animation-play-state: paused;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-fill.visible { animation-play-state: running; }
+  .skill-fill::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 2.4s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+  .skill-fill.visible::after { animation-play-state: running; }
+  @keyframes fillBar { to { transform: scaleX(1); } }
+  @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+  /* ─── EXPERIENCE ─── */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: .4rem; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .tl-item {
+    position: relative; margin-bottom: 3rem;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .tl-item.visible { opacity: 1; transform: none; }
+  .tl-dot {
+    position: absolute; left: -2.4rem; top: .35rem;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--bg);
+    box-shadow: 0 0 10px rgba(124,106,247,.6);
+  }
+  .tl-item.visible .tl-dot { animation: dotPop .5s ease .1s both, dotGlow 2.4s ease-in-out 1s infinite; }
+  @keyframes dotPop { from { transform: scale(0); } to { transform: scale(1); } }
+  @keyframes dotGlow {
+    0%,100% { box-shadow: 0 0 10px rgba(124,106,247,.6); }
+    50% { box-shadow: 0 0 20px rgba(224,92,247,.8); }
+  }
+  .tl-company {
+    font-family: var(--font-display); font-weight: 700;
+    font-size:1.1rem; color: var(--text);
+  }
+  .tl-role { font-size:0.85rem; color: var(--teal); margin-top: .2rem; }
+  .tl-period { font-size:0.85rem; color: var(--muted); margin-top: .15rem; letter-spacing: .06em; }
+  .tl-desc {
+    margin-top: .8rem; font-size:0.85rem;
+    color: var(--muted); line-height: 1.8;
+  }
+  .tl-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .8rem; }
+  .tag {
+    font-size:0.85rem; padding: .25rem .65rem;
+    background: rgba(124,106,247,.12);
+    border: 1px solid rgba(124,106,247,.2);
+    color: var(--accent); border-radius: .3rem;
+    letter-spacing: .05em;
+    transition: background .2s, transform .2s;
+  }
+  .tag:hover { background: rgba(124,106,247,.28); transform: translateY(-2px); }
+
+  /* ─── PROJECTS ─── */
+  #projects { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px,1fr)); gap: 1.5rem; }
+  .project-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: .8rem; padding: 1.8rem;
+    position: relative; overflow: hidden;
+    cursor: pointer;
+    will-change: transform;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity .4s, transform .15s ease-out, border-color .2s, box-shadow .2s;
+  }
+  .project-card.visible { opacity: 1; transform: none; }
+  .project-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 16px 44px rgba(124,106,247,.2);
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--teal));
+    opacity: 0; transition: opacity .2s;
+  }
+  .project-card:hover::before { opacity: 1; }
+
+  .project-icon {
+    width: 40px; height: 40px; border-radius: .5rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size:1.2rem; margin-bottom: 1.1rem;
+    background: rgba(124,106,247,.1);
+    border: 1px solid rgba(124,106,247,.15);
+    transition: transform .3s ease;
+  }
+  .project-card:hover .project-icon { transform: rotate(-8deg) scale(1.1); }
+  .project-title {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 1rem; color: var(--text); margin-bottom: .5rem;
+  }
+  .project-desc { font-size:0.85rem; color: var(--muted); line-height: 1.7; }
+  .project-footer { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.2rem; }
+  .project-tag {
+    font-size:0.85rem; padding: .2rem .55rem;
+    background: rgba(15,244,198,.08);
+    border: 1px solid rgba(15,244,198,.15);
+    color: var(--teal); border-radius: .25rem;
+    transition: background .2s;
+  }
+  .project-tag:hover { background: rgba(15,244,198,.22); }
+
+  /* ─── SKILLS SECTION ─── */
+  .tech-cloud { display: flex; flex-wrap: wrap; gap: .8rem; }
+  .tech-pill {
+    padding: .55rem 1.1rem;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 2rem; font-size:0.85rem; color: var(--muted);
+    letter-spacing: .04em;
+    transition: background .2s, color .2s, border-color .2s, transform .2s;
+    cursor: default;
+  }
+  .tech-pill:hover {
+    background: rgba(124,106,247,.1);
+    border-color: var(--accent); color: var(--accent);
+    transform: translateY(-3px) scale(1.04);
+  }
+
+  /* ─── CONTACT ─── */
+  #contact { text-align: center; }
+  #contact .section-title { margin-bottom: 1rem; }
+  .contact-sub { font-size:0.85rem; color: var(--muted); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.8; }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .75rem 1.5rem;
+    border: 1px solid var(--border); border-radius: .4rem;
+    font-family: var(--font-mono); font-size:0.85rem;
+    color: var(--muted); text-decoration: none;
+    transition: border-color .2s, color .2s, transform .2s;
+    letter-spacing: .06em;
+  }
+  .contact-link:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-3px); }
+  .contact-link svg { width: 16px; height: 16px; fill: currentColor; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size:0.85rem; color: var(--muted); letter-spacing: .08em;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { padding: 7rem 1.5rem 4rem; }
+    .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .stats-row { flex-direction: column; gap: 1rem; }
+    section { padding: 4rem 1.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .chat-panel { width: 100%; right: 0; left: 0; bottom: 0; border-radius: .8rem .8rem 0 0; max-height: 85vh; }
+    .chat-toggle { right: 1rem; bottom: 1rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* ─── INTERVIEW CHATBOT ─── */
+  .chat-toggle {
+    position: fixed; z-index: 200;
+    right: 1.5rem; bottom: 1.5rem;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 32px rgba(124,106,247,.45);
+    transition: transform .2s, box-shadow .2s;
+    font-size:1.35rem;
+    animation: chatPulse 2.6s ease-in-out infinite;
+  }
+  @keyframes chatPulse {
+    0%,100% { box-shadow: 0 8px 32px rgba(124,106,247,.45); }
+    50% { box-shadow: 0 8px 46px rgba(224,92,247,.65); }
+  }
+  .chat-toggle:hover { transform: scale(1.08); animation-play-state: paused; }
+  .chat-toggle[aria-expanded="true"] { opacity: 0; pointer-events: none; }
+
+  .chat-panel {
+    position: fixed; z-index: 201;
+    right: 1.5rem; bottom: 1.5rem;
+    width: min(420px, calc(100vw - 2rem));
+    max-height: min(560px, calc(100vh - 6rem));
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: .85rem;
+    display: flex; flex-direction: column;
+    box-shadow: 0 24px 64px rgba(0,0,0,.45);
+    overflow: hidden;
+    opacity: 0; visibility: hidden; transform: translateY(12px) scale(.98);
+    transition: opacity .25s ease, transform .25s ease, visibility .25s;
+  }
+  .chat-panel.open { opacity: 1; visibility: visible; transform: none; }
+
+  .chat-header {
+    padding: 1rem 1.1rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; gap: .75rem;
+  }
+  .chat-header h3 {
+    font-family: var(--font-display); font-weight: 700; font-size:0.95rem;
+    color: var(--text); letter-spacing: -.02em;
+  }
+  .chat-header p { font-size:0.85rem; color: var(--muted); margin-top: .2rem; line-height: 1.4; }
+  .chat-close {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--muted); width: 32px; height: 32px; border-radius: .35rem;
+    cursor: pointer; font-size:1.1rem; line-height: 1;
+    flex-shrink: 0; transition: border-color .2s, color .2s;
+  }
+  .chat-close:hover { border-color: var(--teal); color: var(--teal); }
+
+  .chat-messages {
+    flex: 1; overflow-y: auto; padding: 1rem;
+    display: flex; flex-direction: column; gap: .85rem;
+    font-size:0.85rem; line-height: 1.65;
+  }
+  .chat-msg {
+    max-width: 100%; padding: .75rem .9rem; border-radius: .55rem;
+    opacity: 0; transform: translateY(8px);
+    animation: msgIn .3s ease forwards;
+  }
+  @keyframes msgIn { to { opacity: 1; transform: none; } }
+  .chat-msg.bot {
+    background: rgba(124,106,247,.1);
+    border: 1px solid rgba(124,106,247,.2);
+    color: var(--muted);
+    align-self: flex-start;
+  }
+  .chat-msg.bot strong { color: var(--text); font-weight: 600; }
+  .chat-msg.user {
+    background: rgba(15,244,198,.08);
+    border: 1px solid rgba(15,244,198,.2);
+    color: var(--text);
+    align-self: flex-end;
+  }
+  .chat-typing { display: inline-flex; gap: 3px; align-self: flex-start; padding: .75rem .9rem; }
+  .chat-typing span {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--muted);
+    animation: typingDot 1s ease-in-out infinite;
+  }
+  .chat-typing span:nth-child(2) { animation-delay: .15s; }
+  .chat-typing span:nth-child(3) { animation-delay: .3s; }
+  @keyframes typingDot { 0%,60%,100% { opacity: .3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+  .chat-disclaimer {
+    font-size:0.85rem; color: var(--muted); opacity: .85;
+    padding: 0 .25rem .5rem;
+    border-bottom: 1px solid var(--border); margin-bottom: .25rem;
+  }
+
+  .chat-quick {
+    display: flex; flex-wrap: wrap; gap: .45rem;
+    padding: 0 1rem .75rem;
+  }
+  .chat-chip {
+    font-family: var(--font-mono); font-size:0.85rem;
+    padding: .35rem .65rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 2rem;
+    cursor: pointer;
+    letter-spacing: .04em;
+    transition: border-color .2s, color .2s, transform .2s;
+  }
+  .chat-chip:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  .chat-input-row {
+    padding: .75rem 1rem 1rem;
+    border-top: 1px solid var(--border);
+    display: flex; gap: .5rem;
+    background: rgba(9,9,15,.5);
+  }
+  .chat-input-row input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: .45rem;
+    padding: .65rem .85rem;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size:0.85rem;
+    transition: border-color .2s;
+  }
+  .chat-input-row input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .chat-input-row button[type="submit"] {
+    padding: .65rem 1rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none; border-radius: .45rem;
+    color: #fff; font-family: var(--font-mono); font-size:0.85rem;
+    cursor: pointer; letter-spacing: .06em;
+    white-space: nowrap;
+    transition: transform .15s;
+  }
+  .chat-input-row button[type="submit"]:hover { transform: translateY(-2px); }
+  .chat-input-row button[type="submit"]:disabled { opacity: .5; cursor: not-allowed; }
+</style>
+<meta name="description" content="Nancy Pareta — Lead Data Engineer. Cloud lakehouses, reliable data platforms, and generative AI workflows.">
+<link rel="stylesheet" href="./Nancy Pareta — Lead Data Engineer_files/design.css">
+</head>
+<body>
+<a class="skip-link" href="http://localhost:8080/#hero">Skip to content</a>
+<button class="motion-control" type="button" aria-pressed="false">Pause motion</button>
+
+<div id="scroll-progress" style="width: 53.8449%;"></div>
+
+<!-- NAV -->
+<nav aria-label="Main navigation">
+  <a class="nav-logo" href="http://localhost:8080/#hero" aria-label="Nancy Pareta home">np.</a>
+<button class="menu-toggle" aria-expanded="false" aria-controls="navigation-links" type="button">Menu</button>
+  <ul class="nav-links" id="navigation-links">
+    <li><a href="http://localhost:8080/#about" class="">About</a></li>
+    <li><a href="http://localhost:8080/#experience" class="">Experience</a></li>
+    <li><a href="http://localhost:8080/#projects" class="active" aria-current="location">Projects</a></li>
+    <li><a href="http://localhost:8080/#skills" class="">Skills</a></li>
+    <li><a href="http://localhost:8080/#trajectory" class="">Journey</a></li>
+    <li><a href="http://localhost:8080/#contact">Contact</a></li>
+    <li><a href="http://localhost:8080/#" id="nav-open-chat" aria-label="Open interview assistant">Ask me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<main id="main-content">
+<section id="hero" tabindex="-1">
+  <div class="hero-bg-glow glow-1"></div>
+  <div class="hero-bg-glow glow-2"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="coder-girl" role="img" aria-label="Animated illustration of a woman coding on a laptop">
+        <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <ellipse cx="200" cy="137" rx="147" ry="110" fill="#e3e9d7"></ellipse>
+          <g fill="none" stroke="#b0c39e" stroke-width="1.5"><circle cx="69" cy="113" r="7"></circle><path d="M320 59v14m-7-7h14M88 55v12m-6-6h12"></path></g>
+          <g class="coder-code" font-family="monospace" font-size="24" fill="#417762"><text x="40" y="89">&lt;/&gt;</text></g>
+          <g class="coder-code coder-code-late" font-family="monospace" font-size="26" fill="#417762"><text x="306" y="123">{ }</text></g>
+          <ellipse cx="203" cy="242" rx="157" ry="9" fill="#c7d4b9"></ellipse>
+          <!-- Hair and gently moving head. -->
+          <g class="coder-head">
+            <path d="M147 153c-17-22-20-58-10-87 10-28 32-43 61-43 35 0 60 24 60 58l-2 70z" fill="#24392e"></path>
+            <path d="M182 120h34v39h-34z" fill="#c98f6c"></path>
+            <ellipse cx="199" cy="87" rx="43" ry="49" fill="#e2ae88"></ellipse>
+            <path d="M153 93c-10-40 12-66 45-66 30 0 48 22 47 56-24-4-42-18-50-33-8 25-24 33-42 35z" fill="#24392e"></path>
+            <path d="M159 92c-18-12-16 21 1 21m81-21c18-12 16 21-1 21" fill="#e2ae88"></path>
+            <g class="coder-eyes" fill="none" stroke="#293b30" stroke-width="2.5" stroke-linecap="round"><path d="M174 91h10m28 0h10"></path></g>
+            <g fill="none" stroke="#315c43" stroke-width="2"><rect x="166" y="79" width="25" height="22" rx="8"></rect><rect x="207" y="79" width="25" height="22" rx="8"></rect><path d="M191 86h16"></path></g>
+            <path d="M191 115q8 7 16 0" fill="none" stroke="#9b5d45" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M140 84c0-30 21-52 57-52s57 24 57 54" fill="none" stroke="#78915b" stroke-width="7"></path>
+            <rect x="136" y="78" width="13" height="34" rx="6" fill="#78915b"></rect><rect x="249" y="78" width="13" height="34" rx="6" fill="#78915b"></rect>
+          </g>
+          <!-- Sweater, sleeves, and typing hands. -->
+          <path d="M181 141q18 13 36 0c31 6 44 24 49 65H134c4-41 17-59 47-65z" fill="#71915d"></path>
+          <path d="M158 158l-21 49 39 12m64-61 22 49-39 12" fill="none" stroke="#71915d" stroke-width="23" stroke-linecap="round"></path>
+          <g class="coder-hand coder-hand-left"><path d="M166 211l25 5" stroke="#e2ae88" stroke-width="13" stroke-linecap="round"></path></g>
+          <g class="coder-hand coder-hand-right"><path d="M232 211l-25 5" stroke="#e2ae88" stroke-width="13" stroke-linecap="round"></path></g>
+          <!-- Laptop and illuminated code glyph. -->
+          <path d="M152 173h97a6 6 0 0 1 6 5l10 53H136l10-53a6 6 0 0 1 6-5z" fill="#203d2d" stroke="#47694d" stroke-width="2"></path>
+          <path d="M187 195l-9 7 9 7m27-14 9 7-9 7m-10-18-7 22" class="coder-screen" fill="none" stroke="#d4e7a8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M126 232h149l-8 7H134z" fill="#426449"></path>
+          <path d="M43 241h315" stroke="#78915b" stroke-width="4" stroke-linecap="round"></path>
+          <g transform="translate(292 192)"><path d="M0 0h24v33H0z" fill="#fffef9" stroke="#a9b998" stroke-width="2"></path><path d="M24 6c19-2 19 20 0 18" fill="none" stroke="#a9b998" stroke-width="3"></path><path class="coder-steam" d="M7-8q-6-7 0-14m10 14q-6-7 0-14" fill="none" stroke="#8a9e7b" stroke-width="2" stroke-linecap="round"></path></g>
+        </svg>
+      </div>
+      <div class="hero-tag">Lead Data Engineer @ McKinsey</div>
+      <h1>Nancy<br><span class="name-accent">Pareta</span></h1>
+      <p class="hero-sub">I turn complex data into dependable systems.<br>Cloud platforms, intelligent pipelines, and AI workflows — built to make a real difference.</p>
+      <div class="hero-ctas">
+        <a href="http://localhost:8080/#projects" class="btn-primary">View Projects</a>
+        <a href="http://localhost:8080/#contact" class="btn-ghost">Get In Touch</a>
+        <a href="mailto:nancyparetawork35@gmail.com?subject=Resume%20request" class="btn-ghost" style="display:inline-flex;align-items:center;gap:.5rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Request Resume
+        </a>
+      </div>
+    </div>
+
+    <div class="data-art" role="img" aria-label="Animated illustration of data sources flowing through a cloud platform into insights">
+      <div class="art-caption"><span>FROM COMPLEXITY TO CLARITY</span><span>DATA / CLOUD / AI</span></div>
+      <svg viewBox="0 0 520 470" aria-hidden="true">
+        <defs><pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#aebdaa" opacity=".45"></circle></pattern><lineargradient id="core" x2="1" y2="1"><stop stop-color="#315c43"></stop><stop offset="1" stop-color="#142f24"></stop></lineargradient></defs>
+        <rect width="520" height="470" fill="url(#grid)"></rect>
+        <g fill="none" stroke="#a9baa0"><circle cx="260" cy="240" r="166"></circle><circle cx="260" cy="240" r="116" stroke-dasharray="2 7"></circle>
+          <g class="orbit"><ellipse cx="260" cy="240" rx="216" ry="82" transform="rotate(-35 260 240)"></ellipse><circle cx="440" cy="130" r="6" fill="#839748" stroke="#f6f5ef" stroke-width="3"></circle></g>
+          <g class="orbit orbit-reverse"><ellipse cx="260" cy="240" rx="212" ry="95" transform="rotate(40 260 240)"></ellipse><circle cx="91" cy="105" r="5" fill="#315c43"></circle></g>
+        </g>
+        <path class="flow-line" d="M88 145L260 240 436 136M260 240L370 365M260 240L91 338" fill="none" stroke="#5a8060" stroke-width="2"></path>
+        <g class="core-pulse"><rect x="192" y="172" width="136" height="136" rx="32" fill="url(#core)" transform="rotate(-8 260 240)"></rect><g fill="none" stroke="#d4e7a8" stroke-width="1.5"><ellipse cx="260" cy="220" rx="27" ry="10"></ellipse><path d="M233 220v29c0 14 54 14 54 0v-29M233 234c0 14 54 14 54 0"></path></g><text x="260" y="283" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="2" fill="#e5eddb">ENGINEERED</text></g>
+        <g font-family="monospace" font-size="10" fill="#31523f" text-anchor="middle">
+          <g class="art-node"><rect x="30" y="111" width="116" height="62" rx="10" fill="#fffef9" stroke="#b9c7ad"></rect><text x="88" y="137">01 / INGEST</text><text x="88" y="155" font-size="9" fill="#687461">Raw data</text></g>
+          <g class="art-node alt"><rect x="369" y="102" width="123" height="62" rx="10" fill="#fffef9" stroke="#b9c7ad"></rect><text x="430" y="128">02 / TRANSFORM</text><text x="430" y="146" font-size="9" fill="#687461">Cloud platforms</text></g>
+          <g class="art-node alt"><rect x="27" y="309" width="123" height="62" rx="10" fill="#fffef9" stroke="#b9c7ad"></rect><text x="88" y="335">03 / VALIDATE</text><text x="88" y="353" font-size="9" fill="#687461">Quality by design</text></g>
+          <g class="art-node"><rect x="315" y="337" width="125" height="62" rx="10" fill="#dce8bc" stroke="#b0c28f"></rect><text x="378" y="363">04 / ACTIVATE</text><text x="378" y="381" font-size="9" fill="#687461">Actionable insights</text></g>
+        </g>
+      </svg>
+      <div class="art-bottom"><span><strong>Reliable by design.</strong></span><span>Built for what’s next ↗</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label reveal visible">// about</div>
+        <h2 class="section-title reveal visible">Building data<br>systems that scale</h2>
+        <p class="reveal visible">
+          I'm a <strong>Lead Data Engineer at McKinsey &amp; Company</strong>, Gurugram, with 5+ years of experience building robust, scalable data pipelines for ingesting, transforming, and storing data from multiple structured and unstructured sources.
+        </p>
+        <p class="reveal visible">
+          I specialise in <strong>cloud-based data platforms (MS Fabric, Azure, GCP)</strong> with deep domain expertise in <strong>Manufacturing and Supply Chain</strong> and <strong>Capital Projects</strong>. I also lead PMO governance for large-scale cloud programs.
+        </p>
+        <p class="reveal visible">
+          I work with <strong>generative AI</strong> and <strong>LLMs</strong> — using <strong>Cursor</strong> and <strong>ChatGPT</strong> to accelerate delivery — and I build <strong>AI agents</strong> for <strong>recommendations</strong>, <strong>reviewing code changes</strong>, <strong>documentation</strong>, and <strong>validation with source-to-target mapping</strong> across complex data estates.
+        </p>
+        <p class="reveal visible">
+          M.Tech (CS) from <strong>Punjab Engineering College</strong> with a 9.61 CGPA, ranked 2nd in class. B.Tech from <strong>PGDAV, Delhi University</strong> — Top 20% of batch. Rewarded Best Performer &amp; Exceptional Impact <strong>8+ times</strong>.
+        </p>
+        <div class="stats-row">
+          <div class="stat-box reveal visible">
+            <div class="stat-num" data-target="5" data-suffix="+" data-counted="true">5+</div>
+            <div class="stat-label">Years at McKinsey</div>
+          </div>
+          <div class="stat-box reveal reveal-delay-1 visible">
+            <div class="stat-num" data-target="8" data-suffix="+" data-counted="true">8+</div>
+            <div class="stat-label">Best Performer Awards</div>
+          </div>
+          <div class="stat-box reveal reveal-delay-2 visible">
+            <div class="stat-num" data-target="4" data-suffix="" data-counted="true">4</div>
+            <div class="stat-label">Cloud Platforms</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="section-label reveal visible" style="margin-bottom:1.2rem">// proficiency</div>
+        <div class="skill-row"><span class="skill-name">PySpark / SQL</span><div class="skill-bar"><div class="skill-fill visible" style="animation-delay: 0s; width: 97%;" data-width=".97"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Azure Databricks</span><div class="skill-bar"><div class="skill-fill visible" style="animation-delay: 0.1s; width: 95%;" data-width=".95"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Azure ADF</span><div class="skill-bar"><div class="skill-fill visible" style="animation-delay: 0.2s; width: 93%;" data-width=".93"></div></div></div>
+        <div class="skill-row"><span class="skill-name">MS Fabric</span><div class="skill-bar"><div class="skill-fill visible" style="animation-delay: 0.3s; width: 90%;" data-width=".9"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Python</span><div class="skill-bar"><div class="skill-fill visible" style="animation-delay: 0.4s; width: 92%;" data-width=".92"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Gen AI / LLM agents</span><div class="skill-bar"><div class="skill-fill visible" style="animation-delay: 0.45s; width: 88%;" data-width=".88"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Delta Lake</span><div class="skill-bar"><div class="skill-fill visible" style="animation-delay: 0.5s; width: 90%;" data-width=".9"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Power BI / Tableau</span><div class="skill-bar"><div class="skill-fill visible" style="animation-delay: 0.6s; width: 82%;" data-width=".82"></div></div></div>
+        <div class="skill-row"><span class="skill-name">GCP</span><div class="skill-bar"><div class="skill-fill visible" style="animation-delay: 0.7s; width: 78%;" data-width=".78"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label reveal visible">// experience</div>
+    <h2 class="section-title reveal visible">Career journey</h2>
+    <div class="timeline">
+
+      <div class="tl-item visible">
+        <div class="tl-dot"></div>
+        <div class="tl-company">McKinsey &amp; Company</div>
+        <div class="tl-role">Data Engineering Lead — Pipelines &amp; Cloud</div>
+        <div class="tl-period">2021 — Present · Gurugram, India · (Domain: Mfg &amp; Supply Chain, Capital Projects)</div>
+        <div class="tl-desc">
+          Building robust, scalable data pipelines ingesting from multiple structured and unstructured sources.
+          Designing and optimising data models and warehouses to support reporting, analytics, and application
+          integration. Working with MS Fabric, Azure, and GCP to build modern, secure data solutions.
+          Reduced system downtime through proactive monitoring and <strong style="color:var(--text)">managed a team of 7+ data engineers</strong>, providing mentorship and guidance on best practices.
+        </div>
+        <div class="tl-desc" style="margin-top:.6rem">
+          Improved data quality via Great Expectations ETL framework; designed and deployed cloud infrastructure
+          reducing costs while increasing scalability; migrated legacy systems to modern big data platforms.
+        </div>
+        <div class="tl-desc" style="margin-top:.6rem">
+          Applying <strong style="color:var(--text)">Gen AI</strong> and <strong style="color:var(--text)">LLMs</strong> in practice: agents for <strong style="color:var(--text)">recommendations</strong>, <strong style="color:var(--text)">code-change review</strong>, <strong style="color:var(--text)">documentation</strong>, and <strong style="color:var(--text)">validation / source-to-target mapping</strong> — with <strong style="color:var(--text)">Cursor</strong> and <strong style="color:var(--text)">ChatGPT</strong> in the daily workflow.
+        </div>
+        <div class="tl-tags">
+          <span class="tag">Azure Databricks</span>
+          <span class="tag">MS Fabric</span>
+          <span class="tag">PySpark</span>
+          <span class="tag">Azure ADF</span>
+          <span class="tag">Delta Lake</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Great Expectations</span>
+          <span class="tag">GCP</span>
+          <span class="tag">LLMs &amp; AI agents</span>
+          <span class="tag">RAG</span>
+          <span class="tag">DuckDB / DuckLake</span>
+          <span class="tag">Gemini Enterprise / ADK</span>
+          <span class="tag">Cursor / ChatGPT / Claude</span>
+          <span class="tag">Team Leadership (7+)</span>
+        </div>
+      </div>
+
+      <div class="tl-item visible">
+        <div class="tl-dot"></div>
+        <div class="tl-company">Snapdeal</div>
+        <div class="tl-role">Data Engineering Intern</div>
+        <div class="tl-period">Sep 2020 — Dec 2020 · Gurgaon, India</div>
+        <div class="tl-desc">
+          Performed comprehensive data analysis for actionable insights driving business growth.
+          Analysed large datasets to identify trends and patterns in customer behaviours.
+          Optimised data processing by implementing efficient ETL pipelines and automating workflows using SQL framework.
+        </div>
+        <div class="tl-tags">
+          <span class="tag">Python</span>
+          <span class="tag">SQL</span>
+          <span class="tag">ETL</span>
+          <span class="tag">Data Analysis</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label reveal visible">// projects</div>
+    <h2 class="section-title reveal visible">Featured work</h2>
+    <div class="projects-grid">
+
+      <div class="project-card visible" style="transition-delay: 0s;">
+        <div class="project-icon" aria-hidden="true">01</div>
+        <div class="project-title">Gen AI agents &amp; LLM workflows</div>
+        <div class="project-desc">
+          LLM-powered agents for recommendations, PR / code-change review, and documentation generation;
+          paired with validators that map sources to targets and flag schema or business-rule drift before release.
+        </div>
+        <div class="project-footer">
+          <span class="project-tag">LLMs</span>
+          <span class="project-tag">AI agents</span>
+          <span class="project-tag">Cursor</span>
+          <span class="project-tag">ChatGPT</span>
+          <span class="project-tag">Claude</span>
+          <span class="project-tag">S↔T mapping</span>
+        </div>
+      </div>
+
+      <div class="project-card visible" style="transition-delay: 0.06s;">
+        <div class="project-icon" aria-hidden="true">02</div>
+        <div class="project-title">Agentic Data Wrangling &amp; Validation Tool</div>
+        <div class="project-desc">
+          Internal tool powered by three agentic workflows — data cleaning, data mapping &amp; processing, and
+          data validation — using LLM-driven agents to automate end-to-end wrangling of messy, heterogeneous
+          client datasets, with a RAG-backed chatbot for querying pipeline outputs and DuckDB / DuckLake for
+          fast embedded analytical querying.
+        </div>
+        <div class="project-footer">
+          <span class="project-tag">Agentic workflows</span>
+          <span class="project-tag">RAG chatbot</span>
+          <span class="project-tag">DuckDB</span>
+          <span class="project-tag">DuckLake</span>
+          <span class="project-tag">LLMs</span>
+        </div>
+      </div>
+
+      <div class="project-card visible" style="transition-delay: 0.12s;">
+        <div class="project-icon" aria-hidden="true">03</div>
+        <div class="project-title">Control Tower for Construction &amp; Infrastructure</div>
+        <div class="project-desc">
+          Databricks-based Control Tower deployed to 10+ clients across Azure and GCP cloud environments;
+          models run data ingestion and processing and calculate KPIs, storing final transformed data
+          connected to Power BI dashboards for real-time visibility.
+        </div>
+        <div class="project-footer">
+          <span class="project-tag">Databricks</span>
+          <span class="project-tag">Azure</span>
+          <span class="project-tag">GCP</span>
+          <span class="project-tag">KPIs</span>
+          <span class="project-tag">Power BI</span>
+        </div>
+      </div>
+
+      <div class="project-card visible" style="transition-delay: 0s;">
+        <div class="project-icon" aria-hidden="true">04</div>
+        <div class="project-title">Real-Time Sales Analytics Pipeline</div>
+        <div class="project-desc">
+          End-to-end streaming pipeline ingesting millions of events per day via Kafka,
+          processed with Spark Structured Streaming on Databricks, landing in Delta Lake
+          with sub-minute latency for live dashboards.
+        </div>
+        <div class="project-footer">
+          <span class="project-tag">Kafka</span>
+          <span class="project-tag">Spark Streaming</span>
+          <span class="project-tag">Delta Lake</span>
+          <span class="project-tag">Databricks</span>
+        </div>
+      </div>
+
+      <div class="project-card visible" style="transition-delay: 0.06s;">
+        <div class="project-icon" aria-hidden="true">05</div>
+        <div class="project-title">Azure Cloud Data Lakehouse</div>
+        <div class="project-desc">
+          Designed a modern lakehouse architecture on Azure using ADLS Gen2, Azure Data Factory
+          orchestration, and Databricks for compute. Implemented medallion architecture (Bronze /
+          Silver / Gold) with automated data quality checks.
+        </div>
+        <div class="project-footer">
+          <span class="project-tag">Azure ADF</span>
+          <span class="project-tag">ADLS Gen2</span>
+          <span class="project-tag">Delta Lake</span>
+          <span class="project-tag">PySpark</span>
+        </div>
+      </div>
+
+      <div class="project-card visible" style="transition-delay: 0.12s;">
+        <div class="project-icon" aria-hidden="true">06</div>
+        <div class="project-title">PySpark ETL Optimization Suite</div>
+        <div class="project-desc">
+          Rewrote legacy Hadoop batch jobs using PySpark with adaptive query execution,
+          dynamic partition pruning, and Z-order indexing — cutting job runtime by 60%
+          and infrastructure costs by 35%.
+        </div>
+        <div class="project-footer">
+          <span class="project-tag">PySpark</span>
+          <span class="project-tag">Spark SQL</span>
+          <span class="project-tag">Delta Lake</span>
+          <span class="project-tag">Optimization</span>
+        </div>
+      </div>
+
+      <div class="project-card visible" style="transition-delay: 0s;">
+        <div class="project-icon" aria-hidden="true">07</div>
+        <div class="project-title">MS Fabric Analytics Platform</div>
+        <div class="project-desc">
+          Built an enterprise analytics platform on Microsoft Fabric, combining OneLake,
+          Data Factory pipelines, and Synapse notebooks. Enabled unified governance and
+          end-to-end BI for 500+ business users with zero-copy data sharing.
+        </div>
+        <div class="project-footer">
+          <span class="project-tag">MS Fabric</span>
+          <span class="project-tag">OneLake</span>
+          <span class="project-tag">Synapse</span>
+          <span class="project-tag">Power BI</span>
+        </div>
+      </div>
+
+      <div class="project-card visible" style="transition-delay: 0.06s;">
+        <div class="project-icon" aria-hidden="true">08</div>
+        <div class="project-title">Data Quality Monitoring System</div>
+        <div class="project-desc">
+          Implemented automated data quality checks using Great Expectations integrated into
+          Airflow DAGs. Built Slack alerting system for anomaly detection across 50+ critical
+          data assets with SLA tracking.
+        </div>
+        <div class="project-footer">
+          <span class="project-tag">Great Expectations</span>
+          <span class="project-tag">Airflow</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Alerting</span>
+        </div>
+      </div>
+
+      <div class="project-card visible" style="transition-delay: 0.12s;">
+        <div class="project-icon" aria-hidden="true">09</div>
+        <div class="project-title">Unified Customer 360 Data Platform</div>
+        <div class="project-desc">
+          Consolidated customer data from 15 disparate sources into a single identity-resolved
+          Customer 360 view. Used fuzzy matching and ML-based entity resolution to achieve
+          98% deduplication accuracy.
+        </div>
+        <div class="project-footer">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">PySpark</span>
+          <span class="project-tag">SQL</span>
+          <span class="project-tag">Entity Resolution</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label reveal visible">// tech stack</div>
+    <h2 class="section-title reveal visible">Technologies I work with</h2>
+    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 2.5rem;">
+      <div class="reveal visible">
+        <div style="font-size:0.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem">Gen AI &amp; agents</div>
+        <div class="tech-cloud">
+          <span class="tech-pill">LLMs</span>
+          <span class="tech-pill">Gen AI</span>
+          <span class="tech-pill">AI agents</span>
+          <span class="tech-pill">Recommendation agents</span>
+          <span class="tech-pill">Code-review agents</span>
+          <span class="tech-pill">Documentation agents</span>
+          <span class="tech-pill">Validation &amp; S↔T mapping</span>
+          <span class="tech-pill">RAG</span>
+          <span class="tech-pill">Gemini Enterprise</span>
+          <span class="tech-pill">Agent Development Kits (ADK)</span>
+          <span class="tech-pill">AI Strategy Advisory</span>
+          <span class="tech-pill">Cursor</span>
+          <span class="tech-pill">ChatGPT</span>
+          <span class="tech-pill">Claude</span>
+        </div>
+      </div>
+      <div class="reveal visible">
+        <div style="font-size:0.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem">Processing &amp; Query</div>
+        <div class="tech-cloud">
+          <span class="tech-pill">PySpark</span>
+          <span class="tech-pill">Spark SQL</span>
+          <span class="tech-pill">SQL</span>
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">Spark Streaming</span>
+        </div>
+      </div>
+      <div class="reveal visible">
+        <div style="font-size:0.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem">Cloud &amp; Infrastructure</div>
+        <div class="tech-cloud">
+          <span class="tech-pill">Azure</span>
+          <span class="tech-pill">Azure ADF</span>
+          <span class="tech-pill">ADLS Gen2</span>
+          <span class="tech-pill">Azure Databricks</span>
+          <span class="tech-pill">GCP</span>
+          <span class="tech-pill">MS Fabric</span>
+          <span class="tech-pill">AWS</span>
+          <span class="tech-pill">Blob Storage</span>
+        </div>
+      </div>
+      <div class="reveal visible">
+        <div style="font-size:0.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem">Storage &amp; Lakehouse</div>
+        <div class="tech-cloud">
+          <span class="tech-pill">Delta Lake</span>
+          <span class="tech-pill">Azure SQL</span>
+          <span class="tech-pill">MS SQL Server</span>
+          <span class="tech-pill">Azure Data Lake</span>
+          <span class="tech-pill">Lakehouse</span>
+          <span class="tech-pill">DuckDB</span>
+          <span class="tech-pill">DuckLake</span>
+        </div>
+      </div>
+      <div class="reveal visible">
+        <div style="font-size:0.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem">ETL &amp; Orchestration</div>
+        <div class="tech-cloud">
+          <span class="tech-pill">Azure Data Factory</span>
+          <span class="tech-pill">Fabric Pipelines</span>
+          <span class="tech-pill">Fabric DataFlows</span>
+          <span class="tech-pill">Fabric Notebooks</span>
+          <span class="tech-pill">Great Expectations</span>
+        </div>
+      </div>
+      <div class="reveal visible">
+        <div style="font-size:0.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem">Visualisation &amp; BI</div>
+        <div class="tech-cloud">
+          <span class="tech-pill">Power BI</span>
+          <span class="tech-pill">Tableau</span>
+        </div>
+      </div>
+
+      <div class="reveal visible">
+        <div style="font-size:0.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem">DevOps &amp; Tools</div>
+        <div class="tech-cloud">
+          <span class="tech-pill">Git</span>
+          <span class="tech-pill">GitHub Actions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER TRAJECTORY -->
+<section id="trajectory" style="border-top: 1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-label reveal visible">// career trajectory</div>
+    <h2 class="section-title reveal visible">How I got here</h2>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items:start;">
+      <div>
+        <p class="reveal visible" style="color:var(--muted);font-size:0.85rem;line-height:1.9;margin-bottom:1rem;">
+          My journey started with a <strong style="color:var(--text)">B.Tech in Computer Science from Delhi University</strong> (Top 20% of batch).
+        </p>
+        <p class="reveal visible" style="color:var(--muted);font-size:0.85rem;line-height:1.9;margin-bottom:1rem;">
+          I went on to complete an <strong style="color:var(--text)">M.Tech from Punjab Engineering College</strong> with a 9.61 CGPA, ranked 2nd in class, and served as Placement Head — building the coordination and communication skills that define my leadership style today.
+        </p>
+        <p class="reveal visible" style="color:var(--muted);font-size:0.85rem;line-height:1.9;margin-bottom:1rem;">
+          A data engineering internship at <strong style="color:var(--text)">Snapdeal</strong> gave me early hands-on experience with large-scale ETL and customer behaviour analytics. Shortly after, I joined <strong style="color:var(--text)">McKinsey &amp; Company</strong> in 2021 — where I've been building and leading ever since.
+        </p>
+        <p class="reveal visible" style="color:var(--muted);font-size:0.85rem;line-height:1.9;">
+          At McKinsey, I grew from delivering pipelines to <strong style="color:var(--text)">leading a team of 7+ data engineers</strong>, spanning domains of Manufacturing, Supply Chain, and Capital Projects. My cloud journey expanded from Azure mastery into <strong style="color:var(--text)">GCP and MS Fabric</strong> — each transition backed by certifications and real production deployments. I’ve layered in <strong style="color:var(--text)">Gen AI</strong>: <strong style="color:var(--text)">LLM agents</strong> for recommendations, code review, docs, and source–target validation, using tools like <strong style="color:var(--text)">Cursor</strong> and <strong style="color:var(--text)">ChatGPT</strong>.
+        </p>
+      </div>
+      <div>
+        <div class="reveal visible" style="font-size:0.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1.2rem">Key milestones</div>
+        <div style="display:flex;flex-direction:column;gap:.8rem;">
+          <div class="reveal visible" style="display:flex;gap:1rem;align-items:flex-start;">
+            <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(124,106,247,.12);border:1px solid rgba(124,106,247,.2);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">🎓</div>
+            <div><div style="font-size:0.85rem;color:var(--text);">B.Tech CS — PGDAV, Delhi University</div><div style="font-size:0.85rem;color:var(--muted);margin-top:.2rem;">2017 · Top 20% · Best Performer 8+ times</div></div>
+          </div>
+          <div class="reveal visible" style="display:flex;gap:1rem;align-items:flex-start;">
+            <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(124,106,247,.12);border:1px solid rgba(124,106,247,.2);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">🎓</div>
+            <div><div style="font-size:0.85rem;color:var(--text);">M.Tech CS — Punjab Engineering College</div><div style="font-size:0.85rem;color:var(--muted);margin-top:.2rem;">2021 · 9.61 CGPA · Ranked 2nd · Placement Head</div></div>
+          </div>
+          <div class="reveal visible" style="display:flex;gap:1rem;align-items:flex-start;">
+            <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(15,244,198,.08);border:1px solid rgba(15,244,198,.15);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">🛒</div>
+            <div><div style="font-size:0.85rem;color:var(--text);">Data Engineering Intern — Snapdeal</div><div style="font-size:0.85rem;color:var(--muted);margin-top:.2rem;">Sep–Dec 2020 · ETL, customer analytics</div></div>
+          </div>
+          <div class="reveal visible" style="display:flex;gap:1rem;align-items:flex-start;">
+            <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(15,244,198,.08);border:1px solid rgba(15,244,198,.15);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">📈</div>
+            <div><div style="font-size:0.85rem;color:var(--text);">Joined McKinsey &amp; Company</div><div style="font-size:0.85rem;color:var(--muted);margin-top:.2rem;">Jan 2021 · Azure · Pipelines · Lakehouse</div></div>
+          </div>
+          <div class="reveal visible" style="display:flex;gap:1rem;align-items:flex-start;">
+            <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(15,244,198,.08);border:1px solid rgba(15,244,198,.15);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">☁️</div>
+            <div><div style="font-size:0.85rem;color:var(--text);">Expanded to GCP — certified</div><div style="font-size:0.85rem;color:var(--muted);margin-top:.2rem;">Deep-dived GCP ecosystem alongside Azure expertise</div></div>
+          </div>
+          <div class="reveal visible" style="display:flex;gap:1rem;align-items:flex-start;">
+            <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(224,92,247,.1);border:1px solid rgba(224,92,247,.2);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">🧱</div>
+            <div><div style="font-size:0.85rem;color:var(--text);">Adopted Microsoft Fabric</div><div style="font-size:0.85rem;color:var(--muted);margin-top:.2rem;">OneLake · Fabric Pipelines · DataFlows · Notebooks</div></div>
+          </div>
+          <div class="reveal visible" style="display:flex;gap:1rem;align-items:flex-start;">
+            <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(224,92,247,.1);border:1px solid rgba(224,92,247,.2);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">🧠</div>
+            <div><div style="font-size:0.85rem;color:var(--text);">Gen AI &amp; LLM agents</div><div style="font-size:0.85rem;color:var(--muted);margin-top:.2rem;">Recommendations · code review · docs · S↔T validation · Cursor · ChatGPT</div></div>
+          </div>
+          <div class="reveal visible" style="display:flex;gap:1rem;align-items:flex-start;">
+            <div style="min-width:2.5rem;height:2.5rem;border-radius:.4rem;background:rgba(224,92,247,.1);border:1px solid rgba(224,92,247,.2);display:flex;align-items:center;justify-content:center;font-size:0.9rem;">👩‍💼</div>
+            <div><div style="font-size:0.85rem;color:var(--text);">Promoted to Data Engineering Lead</div><div style="font-size:0.85rem;color:var(--muted);margin-top:.2rem;">Managing 7+ engineers · Mfg &amp; Supply Chain domain</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-label reveal visible">// certifications &amp; education</div>
+    <h2 class="section-title reveal visible">Credentials</h2>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+
+      <div>
+        <div class="reveal visible" style="font-size:0.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem">Certifications</div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="reveal visible" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:transform .25s, border-color .25s;">
+            <span style="font-size:1.4rem">🧠</span>
+            <div>
+              <div style="font-size:0.85rem;color:var(--text);font-weight:600">Claude Certified Developer – Foundations (CCDV-F)</div>
+              <div style="font-size:0.85rem;color:var(--muted);margin-top:.2rem">Anthropic</div>
+              <div style="font-size:0.85rem;color:var(--teal);margin-top:.3rem;">Foundations of building with Claude — prompting, tool use, and agentic workflows</div>
+            </div>
+          </div>
+          <div class="reveal visible" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:transform .25s, border-color .25s;">
+            <span style="font-size:1.4rem">☁️</span>
+            <div>
+              <div style="font-size:0.85rem;color:var(--text);font-weight:600">Google Cloud Platform (GCP) Fundamentals for Beginners</div>
+              <div style="font-size:0.85rem;color:var(--muted);margin-top:.2rem">Google Cloud · Verified on LinkedIn</div>
+              <div style="font-size:0.85rem;color:var(--teal);margin-top:.3rem;">Part of a broader GCP certification journey — deepening expertise across the GCP ecosystem</div>
+            </div>
+          </div>
+          <div class="reveal visible" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:transform .25s, border-color .25s;">
+            <span style="font-size:1.4rem">⚡</span>
+            <div>
+              <div style="font-size:0.85rem;color:var(--text);font-weight:600">Azure Databricks &amp; Spark Core For Data Engineers (Python/SQL)</div>
+              <div style="font-size:0.85rem;color:var(--muted);margin-top:.2rem">Microsoft / Udemy · Verified on LinkedIn</div>
+              <div style="font-size:0.85rem;color:var(--teal);margin-top:.3rem;">Covers Spark architecture, Delta Lake, structured streaming, and ADF integration</div>
+            </div>
+          </div>
+          <div class="reveal visible" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:transform .25s, border-color .25s;">
+            <span style="font-size:1.4rem">🏆</span>
+            <div>
+              <div style="font-size:0.85rem;color:var(--text);font-weight:600">HackerRank: Python Intermediate</div>
+              <div style="font-size:0.85rem;color:var(--muted);margin-top:.2rem">HackerRank · Verified</div>
+              <div style="font-size:0.85rem;color:var(--teal);margin-top:.3rem;">Validated proficiency in Python — data structures, OOP, and functional programming</div>
+            </div>
+          </div>
+          <div class="reveal visible" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:transform .25s, border-color .25s;">
+            <span style="font-size:1.4rem">🗄️</span>
+            <div>
+              <div style="font-size:0.85rem;color:var(--text);font-weight:600">HackerRank: SQL Intermediate</div>
+              <div style="font-size:0.85rem;color:var(--muted);margin-top:.2rem">HackerRank · Verified</div>
+              <div style="font-size:0.85rem;color:var(--teal);margin-top:.3rem;">Validated SQL proficiency — complex joins, window functions, and query optimisation</div>
+            </div>
+          </div>
+          <div class="reveal visible" style="background:var(--card);border:1px solid var(--border);border-left: 2px solid var(--accent);border-radius:.6rem;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:transform .25s, border-color .25s;">
+            <span style="font-size:1.4rem">🔗</span>
+            <div>
+              <div style="font-size:0.85rem;color:var(--muted);">View all certifications on LinkedIn</div>
+              <a href="https://www.linkedin.com/in/nancy-pareta/details/certifications/" target="_blank" rel="noopener noreferrer" style="font-size:0.85rem;color:var(--accent);text-decoration:none;">linkedin.com/in/nancy-pareta/details/certifications →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="reveal visible" style="font-size:0.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem">Education</div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="reveal visible" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;transition:transform .25s, border-color .25s;">
+            <div style="font-size:0.85rem;color:var(--text);font-weight:600">M.Tech — Computer Science</div>
+            <div style="font-size:0.85rem;color:var(--teal);margin-top:.2rem">Punjab Engineering College · 2021</div>
+            <div style="font-size:0.85rem;color:var(--muted);margin-top:.4rem;line-height:1.7">
+              9.61 CGPA · Ranked 2nd in Class<br>
+              Placement Head, PEC Placement Community (2020–21)<br>
+              Coursework: Deep Learning (2021)
+            </div>
+          </div>
+          <div class="reveal visible" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;transition:transform .25s, border-color .25s;">
+            <div style="font-size:0.85rem;color:var(--text);font-weight:600">B.Tech — Computer Science</div>
+            <div style="font-size:0.85rem;color:var(--teal);margin-top:.2rem">PGDAV, Delhi University · 2017</div>
+            <div style="font-size:0.85rem;color:var(--muted);margin-top:.4rem;line-height:1.7">
+              84% · Top 20% of DU B.Tech Batch<br>
+              Supervised team of 10+ staff members<br>
+              Documented &amp; resolved 700+ issues → highest revenue product<br>
+              Best Performer &amp; Exceptional Impact — 8+ times
+            </div>
+          </div>
+          <div class="reveal visible" style="background:var(--card);border:1px solid var(--border);border-radius:.6rem;padding:1.1rem 1.4rem;transition:transform .25s, border-color .25s;">
+            <div style="font-size:0.85rem;color:var(--text);font-weight:600">Achievements &amp; Test Scores</div>
+            <div style="font-size:0.85rem;color:var(--muted);margin-top:.4rem;line-height:1.7">
+              GATE (Graduate Aptitude Test in Engineering) 2019 — 94.54 percentile<br>
+              Guild Champion Gold badge
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label reveal visible">// contact</div>
+    <h2 class="section-title reveal visible">Let's connect</h2>
+    <p class="contact-sub reveal visible">
+      Whether you have an exciting data challenge, want to collaborate on a project,
+      or just want to talk shop about data engineering — my inbox is open.
+    </p>
+    <div class="contact-links reveal visible">
+      <a href="https://github.com/nancypareta" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/nancy-pareta/" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+        LinkedIn
+      </a>
+      <a href="mailto:nancyparetawork35@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.126.016-.248.041-.365L12 13.64 23.959 5.092c.025.117.041.239.041.365z"></path></svg>
+        Email
+      </a>
+      <a href="mailto:nancyparetawork35@gmail.com?subject=Resume%20request" class="contact-link" style="border-color:rgba(124,106,247,.35);color:var(--accent);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Request Resume
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <span>crafted with ♥ · nancy pareta · © 2026</span>
+</footer>
+
+<!-- Interview / profile assistant -->
+<button type="button" class="chat-toggle" id="chat-toggle" aria-label="Open profile assistant" aria-expanded="false" title="Ask about Nancy's profile">💬</button>
+<div class="chat-panel" id="chat-panel" role="dialog" aria-labelledby="chat-title" aria-hidden="true">
+  <div class="chat-header">
+    <div>
+      <h3 id="chat-title">Profile &amp; interview assistant</h3>
+      <p>Answers from this site’s content — practice answers for common interviewer questions.</p>
+    </div>
+    <button type="button" class="chat-close" id="chat-close" aria-label="Close">×</button>
+  </div>
+  <div class="chat-messages" id="chat-messages" role="log" aria-live="polite"><div class="chat-disclaimer">Offline assistant — answers reflect this site only, not live web data.</div><div class="chat-msg bot">Ask about <strong>Nancy’s profile</strong> (role, stack, projects, education) or <strong>interviewer-style questions</strong>. I’ll suggest concise talking points you can practice out loud.</div></div>
+  <div class="chat-quick" id="chat-quick"><button type="button" class="chat-chip">Summarize your McKinsey role</button><button type="button" class="chat-chip">What is your tech stack?</button><button type="button" class="chat-chip">How do you use Gen AI and LLMs?</button><button type="button" class="chat-chip">How do you ensure data quality?</button><button type="button" class="chat-chip">Tell me about a challenging pipeline</button><button type="button" class="chat-chip">Education and certifications</button></div>
+  <form class="chat-input-row" id="chat-form">
+    <input type="text" id="chat-input" aria-label="Ask about Nancy" placeholder="Ask about experience, stack, projects…" autocomplete="off" maxlength="500">
+    <button type="submit">Send</button>
+  </form>
+</div>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.tl-item, .project-card, .skill-fill, .reveal').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Skill bar widths
+  document.querySelectorAll('.skill-fill').forEach(el => {
+    const w = el.getAttribute('data-width') || '0.8';
+    el.style.width = (parseFloat(w) * 100) + '%';
+  });
+
+  // Staggered project card delays
+  document.querySelectorAll('.project-card').forEach((card, i) => {
+    card.style.transitionDelay = ((i % 3) * 0.06) + 's';
+  });
+
+  // ─── Scroll progress bar ───
+  (function initScrollProgress() {
+    const bar = document.getElementById('scroll-progress');
+    function update() {
+      const h = document.documentElement;
+      const scrollable = h.scrollHeight - h.clientHeight;
+      const pct = scrollable > 0 ? (h.scrollTop / scrollable) * 100 : 0;
+      bar.style.width = pct + '%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+
+  // ─── Animated stat counters ───
+  (function initCounters() {
+    const counters = document.querySelectorAll('.stat-num[data-target]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        if (el.dataset.counted) return;
+        el.dataset.counted = 'true';
+        const target = parseFloat(el.getAttribute('data-target')) || 0;
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 1200;
+        const start = performance.now();
+        function step(now) {
+          const progress = document.documentElement.classList.contains('motion-paused') ? 1 : Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = Math.round(target * eased);
+          el.textContent = value + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+          else el.textContent = target + suffix;
+        }
+        requestAnimationFrame(step);
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.4 });
+    counters.forEach(el => counterObserver.observe(el));
+  })();
+
+  // ─── Project card tilt-on-hover ───
+  (function initTilt() {
+    const cards = document.querySelectorAll('.project-card');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        if (document.documentElement.classList.contains('motion-paused') || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rotateX = ((y / rect.height) - 0.5) * -8;
+        const rotateY = ((x / rect.width) - 0.5) * 8;
+        card.style.transform = `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  })();
+
+  // ─── Profile knowledge (grounded in portfolio copy) ───
+  const PROFILE_CHUNKS = [
+    {
+      keys: ['tech stack', 'technologies', 'skills', 'tools you', 'what stack', 'which tools'],
+      title: 'Tech stack snapshot',
+      body: '<strong>Processing:</strong> PySpark, Spark SQL, Python, SQL, Spark Streaming. <strong>Cloud:</strong> Azure (ADF, Databricks, ADLS Gen2), GCP, MS Fabric, AWS. <strong>Gen AI:</strong> LLMs, AI agents (recommendations, code review, documentation), validation &amp; source-to-target mapping, <strong>Cursor</strong>, <strong>ChatGPT</strong>. <strong>Storage / lakehouse:</strong> Delta Lake, Azure SQL, MS SQL Server. <strong>Quality &amp; orchestration:</strong> Great Expectations, Airflow, Fabric pipelines/notebooks/DataFlows. <strong>BI:</strong> Power BI, Tableau. <strong>DevOps:</strong> Git, GitHub Actions.'
+    },
+    {
+      keys: ['who', 'introduce', 'yourself', 'summary', 'overview', 'about you', 'tell me about'],
+      title: 'Quick intro',
+      body: '<strong>Nancy Pareta</strong> is a <strong>Lead Data Engineer at McKinsey &amp; Company</strong> (Gurugram), with <strong>5+ years</strong> building scalable pipelines, lakehouse architectures on <strong>Azure, GCP, and MS Fabric</strong>, and experience in <strong>Manufacturing &amp; Supply Chain</strong> and <strong>Capital Projects</strong>. She also applies <strong>Gen AI</strong> (<strong>LLMs</strong>, agents for recommendations, code review, documentation, source–target validation) with <strong>Cursor</strong> and <strong>ChatGPT</strong>, and supports <strong>PMO governance</strong> for cloud transformation programs. Location: <strong>New Delhi, India</strong>.'
+    },
+    {
+      keys: ['mckinsey', 'current role', 'lead', 'responsibilit', 'day to day', 'what do you do'],
+      title: 'Role at McKinsey',
+      body: 'As <strong>Data Engineering Lead — Pipelines &amp; Cloud</strong> (2021–present): builds robust pipelines from structured and unstructured sources; designs data models/warehouses for reporting and apps; uses <strong>MS Fabric, Azure, GCP</strong>; reduced downtime via monitoring; <strong>managed 7+ data engineers</strong> with mentorship. Improved quality with <strong>Great Expectations</strong>; deployed infra for cost and scale; migrated legacy to modern big data platforms. Uses <strong>Gen AI</strong>: <strong>LLM agents</strong> for recommendations, code-change review, documentation, and validation/source-to-target mapping; <strong>Cursor</strong> &amp; <strong>ChatGPT</strong> in workflow.'
+    },
+    {
+      keys: ['leadership', 'manage', 'team', 'mentor', 'people'],
+      title: 'Leadership',
+      body: 'Leads and mentors a <strong>team of 7+ data engineers</strong>, focusing on best practices, delivery, and scalable design in cloud data platforms.'
+    },
+    {
+      keys: ['azure', 'databricks', 'adf', 'data factory', 'adls', 'fabric', 'microsoft'],
+      title: 'Azure &amp; Microsoft stack',
+      body: 'Deep hands-on with <strong>Azure Databricks, Azure Data Factory, ADLS Gen2, Delta Lake</strong>, and <strong>Microsoft Fabric</strong> (OneLake, pipelines, Synapse notebooks, DataFlows). Experience with medallion (Bronze/Silver/Gold), orchestration, and enterprise analytics for large user bases.'
+    },
+    {
+      keys: ['gen ai', 'genai', 'llm', 'llms', 'cursor', 'chatgpt', 'openai', 'agent', 'agents', 'recommendation', 'documentation', 'source to target', 'mapping', 'validation', 'code review', 'code change'],
+      title: 'Gen AI &amp; agents',
+      body: 'Works with <strong>LLMs</strong> and <strong>AI agents</strong>: <strong>recommendation agents</strong>, agents to <strong>review code changes</strong>, <strong>documentation</strong> agents, and workflows for <strong>validation</strong> plus <strong>source-to-target mapping</strong>. Day-to-day acceleration with <strong>Cursor</strong> and <strong>ChatGPT</strong>.'
+    },
+    {
+      keys: ['gcp', 'google cloud'],
+      title: 'GCP',
+      body: 'Works across <strong>GCP</strong> alongside Azure; completed <strong>GCP Fundamentals for Beginners</strong> (verified on LinkedIn) as part of a broader GCP journey.'
+    },
+    {
+      keys: ['pyspark', 'spark', 'sql', 'python', 'etl', 'pipeline'],
+      title: 'Data processing',
+      body: 'Strong in <strong>PySpark, Spark SQL, Spark Streaming, SQL, Python</strong>. Experience optimizing jobs (e.g. AQE, partition pruning, Z-order) and building ETL with <strong>Great Expectations</strong> and orchestration patterns.'
+    },
+    {
+      keys: ['delta', 'lakehouse', 'kafka', 'streaming', 'real time', 'real-time'],
+      title: 'Lakehouse &amp; streaming',
+      body: 'Built <strong>Delta Lake</strong> lakehouses and streaming paths (e.g. Kafka → Spark Structured Streaming on Databricks, sub-minute latency). Medallion architecture with automated quality checks.'
+    },
+    {
+      keys: ['data quality', 'great expectations', 'airflow', 'monitoring', 'sla'],
+      title: 'Data quality &amp; ops',
+      body: 'Uses <strong>Great Expectations</strong> in ETL; integrated with <strong>Airflow</strong> DAGs; Slack alerting and SLA tracking across many critical assets.'
+    },
+    {
+      keys: ['power bi', 'tableau', 'bi', 'visual'],
+      title: 'BI',
+      body: '<strong>Power BI</strong> and <strong>Tableau</strong> for analytics and dashboards; Fabric + Power BI for unified BI at scale.'
+    },
+    {
+      keys: ['manufacturing', 'supply chain', 'capital project', 'domain', 'pmo', 'transformation'],
+      title: 'Domain &amp; programs',
+      body: 'Domain focus: <strong>Manufacturing &amp; Supply Chain</strong> and <strong>Capital Projects</strong>. Leads <strong>PMO governance</strong> for cloud transformation programs.'
+    },
+    {
+      keys: ['gen ai', 'llm workflow', 'recommendation agent', 'code review agent'],
+      title: 'Project: Gen AI agents',
+      body: '<strong>Gen AI agents &amp; LLM workflows</strong>: agents for recommendations, PR/code-change review, documentation; validators for <strong>source-to-target mapping</strong> and drift checks before release.'
+    },
+    {
+      keys: ['project', 'kafka sales', 'sales analytics'],
+      title: 'Project: real-time sales',
+      body: '<strong>Real-Time Sales Analytics Pipeline</strong>: Kafka ingestion, Spark Structured Streaming on Databricks, Delta Lake, sub-minute latency for live dashboards.'
+    },
+    {
+      keys: ['azure lakehouse', 'medallion', 'bronze silver gold'],
+      title: 'Project: Azure lakehouse',
+      body: '<strong>Azure Cloud Data Lakehouse</strong>: ADLS Gen2, ADF orchestration, Databricks, medallion layers, automated DQ checks.'
+    },
+    {
+      keys: ['optimization', 'optimize', 'cost', 'performance', '60%', 'hadoop'],
+      title: 'Project: PySpark optimization',
+      body: '<strong>PySpark ETL Optimization</strong>: Migrated legacy Hadoop-style batch to PySpark with AQE, dynamic partition pruning, Z-order — <strong>~60% faster jobs</strong>, <strong>~35% lower infra cost</strong> (as stated on the site).'
+    },
+    {
+      keys: ['fabric platform', 'onelake', '500'],
+      title: 'Project: MS Fabric',
+      body: '<strong>MS Fabric Analytics Platform</strong>: OneLake, Data Factory pipelines, Synapse notebooks; governance and BI for <strong>500+ business users</strong>, zero-copy sharing.'
+    },
+    {
+      keys: ['customer 360', 'entity', 'dedup'],
+      title: 'Project: Customer 360',
+      body: '<strong>Unified Customer 360</strong>: 15 sources consolidated; fuzzy matching and ML entity resolution; <strong>98% deduplication accuracy</strong> cited.'
+    },
+    {
+      keys: ['snapdeal', 'intern'],
+      title: 'Snapdeal internship',
+      body: '<strong>Data Engineering Intern</strong> (Sep–Dec 2020): analysis for growth insights, large-dataset trends, ETL and SQL automation.'
+    },
+    {
+      keys: ['education', 'degree', 'pec', 'punjab', 'm.tech', 'b.tech', 'du', 'delhi university', 'cgpa'],
+      title: 'Education',
+      body: '<strong>M.Tech (CS), Punjab Engineering College, 2021</strong> — 9.61 CGPA, ranked 2nd; Placement Head. <strong>B.Tech (CS), PGDAV, Delhi University, 2017</strong> — top 20% of batch; multiple Best Performer awards.'
+    },
+    {
+      keys: ['certification', 'hackerrank', 'udemy', 'credential'],
+      title: 'Certifications (sample)',
+      body: 'Includes <strong>GCP Fundamentals for Beginners</strong>, <strong>Azure Databricks &amp; Spark Core for Data Engineers</strong> (Udemy/Microsoft), <strong>HackerRank Python &amp; SQL Intermediate</strong>. Full list: LinkedIn certifications on the site.'
+    },
+    {
+      keys: ['award', 'performer', 'recognition'],
+      title: 'Recognition',
+      body: '<strong>Best Performer &amp; Exceptional Impact — 8+ times</strong> (per portfolio copy).'
+    },
+    {
+      keys: ['contact', 'email', 'linkedin', 'github', 'reach'],
+      title: 'Contact',
+      body: 'Email: <strong>nancyparetawork35@gmail.com</strong> · LinkedIn &amp; GitHub links are in the Contact section (github.com/nancypareta, linkedin.com/in/nancy-pareta/).'
+    },
+    {
+      keys: ['why data', 'why engineering', 'motivation', 'passion'],
+      title: 'Why data engineering (talking point)',
+      body: 'You can say you enjoy turning messy, high-volume data into <strong>reliable platforms</strong> that teams trust — from ingestion through lakehouse modeling to quality and cost-aware operations — especially in domains like <strong>manufacturing and supply chain</strong> where decisions depend on timely, governed data.'
+    }
+  ];
+
+  const INTERVIEW_QA = [
+    {
+      keys: ['strength', 'biggest strength'],
+      q: 'What are your strengths?',
+      a: '<strong>Suggested framing:</strong> Combine depth in <strong>cloud data platforms</strong> (Azure Databricks, ADF, Fabric, GCP) with <strong>hands-on PySpark/SQL</strong> and <strong>data quality</strong> (Great Expectations). Add <strong>Gen AI</strong> where relevant: <strong>LLM agents</strong> for recommendations, code review, docs, and source–target validation (<strong>Cursor</strong>, <strong>ChatGPT</strong>). Add <strong>leadership</strong> — mentoring <strong>7+ engineers</strong> and aligning delivery with business domains (Mfg &amp; Supply Chain). Mention measurable wins when asked (e.g. optimization and cost reductions from your project highlights).'
+    },
+    {
+      keys: ['weakness', 'improve', 'working on'],
+      q: 'What is a weakness?',
+      a: '<strong>Practice tip:</strong> Pick something real but safe — e.g. saying no to scope creep, or deepening a secondary cloud — and show <strong>what you do about it</strong> (prioritization frameworks, certs, pairing with specialists). Avoid clichés; tie recovery to how you work at McKinsey.'
+    },
+    {
+      keys: ['challenge', 'difficult', 'failure', 'mistake', 'pressure'],
+      q: 'Tell me about a challenge',
+      a: '<strong>STAR outline using your facts:</strong> <em>Situation</em> — legacy batch or scale/latency needs. <em>Task</em> — improve reliability, cost, or time-to-insight. <em>Action</em> — PySpark redesign, Fabric/Azure lakehouse, Great Expectations, monitoring. <em>Result</em> — cite portfolio metrics where true (e.g. <strong>60% runtime reduction, 35% cost</strong>, or streaming sub-minute latency). Always add <strong>what you learned</strong>. <strong>Concrete anchors on this page:</strong> real-time Kafka→Spark pipeline, Azure medallion lakehouse, PySpark optimization suite, or Customer 360 consolidation.'
+    },
+    {
+      keys: ['data quality', 'how do you ensure', 'reliability'],
+      q: 'How do you ensure data quality?',
+      a: '<strong>Answer spine:</strong> Validation in pipeline (e.g. <strong>Great Expectations</strong>), layered testing from Bronze to Gold, monitoring/alerting (e.g. Slack + SLAs), ownership of critical assets, and collaboration with consumers on definitions. Tie to your <strong>50+ assets</strong> monitoring example if relevant to the role you are interviewing for.'
+    },
+    {
+      keys: ['lakehouse', 'medallion', 'bronze', 'silver', 'gold'],
+      q: 'Explain medallion / lakehouse',
+      a: '<strong>Concise answer:</strong> <strong>Bronze</strong> = raw ingest with lineage; <strong>Silver</strong> = cleaned, conformed, business keys; <strong>Gold</strong> = curated marts for BI/ML. Lakehouse = cheap storage (e.g. ADLS) + <strong>Delta</strong> ACID/transactions + Spark compute. Mention <strong>Fabric OneLake</strong> or Azure stack if the interviewer is Microsoft-aligned.'
+    },
+    {
+      keys: ['spark', 'optimize', 'partition', 'skew', 'shuffle'],
+      q: 'How do you optimize Spark jobs?',
+      a: '<strong>Talking points from your profile:</strong> Adaptive Query Execution, <strong>dynamic partition pruning</strong>, <strong>Z-order</strong> for selective reads, right-sizing clusters, Delta maintenance, and profiling expensive stages. Reference your <strong>legacy Hadoop → PySpark</strong> migration outcome if they want proof.'
+    },
+    {
+      keys: ['lead', 'conflict', 'disagree', 'stakeholder'],
+      q: 'Leadership / stakeholders',
+      a: '<strong>Blend:</strong> Leading <strong>7+ engineers</strong> — clarity on standards (repo, testing, reviews), psychological safety, and aligning with PMO and domain stakeholders on transformation programs. For conflict: focus on <strong>data contracts</strong>, SLAs, and evidence-based tradeoffs (cost vs. freshness).'
+    },
+    {
+      keys: ['why leaving', 'why new', 'why this role'],
+      q: 'Why this role / company?',
+      a: '<strong>Template:</strong> You want problems at the intersection of <strong>scale, governance, and domain depth</strong> — and this team’s stack/challenges map to what you have delivered (Fabric/Azure/GCP, lakehouse, quality). Personalize with their products; avoid badmouthing current employer.'
+    },
+    {
+      keys: ['behavioral', 'star', 'format', 'structure answer'],
+      q: 'How to structure behavioral answers?',
+      a: 'Use <strong>STAR</strong>: Situation (1–2 sentences), Task (your responsibility), Action (what <em>you</em> did, tools), Result (metrics, business impact), Reflection (what you’d scale next). Keep each answer under ~90 seconds unless they probe deeper.'
+    },
+    {
+      keys: ['llm', 'gen ai', 'generative', 'ai agent', 'cursor', 'chatgpt'],
+      q: 'How do you use Gen AI / LLMs?',
+      a: '<strong>Talk track:</strong> You combine <strong>Cursor</strong> and <strong>ChatGPT</strong> for faster design, reviews, and docs — while building <strong>agents</strong> for <strong>recommendations</strong>, <strong>code-change review</strong>, <strong>documentation</strong>, and <strong>validation with source-to-target mapping</strong>. Emphasize guardrails: human review for production, tests, and alignment with data contracts.'
+    }
+  ];
+
+  const QUICK_PROMPTS = [
+    'Summarize your McKinsey role',
+    'What is your tech stack?',
+    'How do you use Gen AI and LLMs?',
+    'How do you ensure data quality?',
+    'Tell me about a challenging pipeline',
+    'Education and certifications'
+  ];
+
+  function normalize(s) {
+    return (s || '').toLowerCase().replace(/[^\w\s]/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+
+  function scoreChunk(textNorm, chunk) {
+    let score = 0;
+    for (const k of chunk.keys) {
+      if (textNorm.includes(k)) score += k.length > 4 ? 3 : 2;
+    }
+    return score;
+  }
+
+  function bestInterviewMatch(textNorm) {
+    let best = null, bestScore = 0;
+    for (const item of INTERVIEW_QA) {
+      let s = 0;
+      for (const k of item.keys) if (textNorm.includes(k)) s += k.length > 6 ? 4 : 2;
+      if (s > bestScore) { bestScore = s; best = item; }
+    }
+    return bestScore >= 2 ? { item: best, score: bestScore } : null;
+  }
+
+  function bestProfileChunks(textNorm, limit) {
+    const scored = PROFILE_CHUNKS.map(c => ({ c, s: scoreChunk(textNorm, c) }))
+      .filter(x => x.s > 0)
+      .sort((a, b) => b.s - a.s);
+    if (!scored.length) return [];
+    const top = scored[0].s;
+    return scored.filter(x => x.s >= Math.max(1, top * 0.5)).slice(0, limit).map(x => x.c);
+  }
+
+  function composeReply(userText) {
+    const t = normalize(userText);
+    if (!t) return '<strong>Ask anything</strong> about Nancy’s background, projects, stack, or common interview prompts.';
+
+    if (/\b(hello|hi|hey|thanks|thank you)\b/.test(t) && t.length < 40) {
+      return 'Hi — I’m a <strong>practice assistant</strong> using this portfolio’s content. Try a quick prompt below or ask about Azure, Fabric, leadership, or interview answers.';
+    }
+
+    const ivMatch = bestInterviewMatch(t);
+    const interviewIntent =
+      t.includes('interview') ||
+      t.includes('answer') ||
+      t.includes('how should') ||
+      t.includes('how do i') ||
+      t.includes('how do you') ||
+      t.includes('tell me how') ||
+      t.includes('prepare') ||
+      t.includes('practice') ||
+      INTERVIEW_QA.some(q => q.keys.some(k => t.includes(k)));
+    if (ivMatch && interviewIntent && ivMatch.score >= 4) {
+      const iv = ivMatch.item;
+      return '<strong>' + iv.q + '</strong><br><br>' + iv.a;
+    }
+
+    const chunks = bestProfileChunks(t, 3);
+    if (chunks.length) {
+      return chunks.map(c => '<strong>' + c.title + '</strong><br>' + c.body).join('<br><br>');
+    }
+
+    if (ivMatch && ivMatch.score >= 2) {
+      const iv = ivMatch.item;
+      return '<strong>' + iv.q + '</strong><br><br>' + iv.a;
+    }
+
+    return 'I don’t have a specific match on this page for that. Try rephrasing (e.g. <strong>“MS Fabric experience”</strong>, <strong>“team size”</strong>, <strong>“Customer 360”</strong>), or browse <strong>Experience</strong>, <strong>Projects</strong>, and <strong>Credentials</strong>. For live AI answers you could later plug in an API — this widget is fully offline and privacy-friendly.';
+  }
+
+  (function initChat() {
+    const panel = document.getElementById('chat-panel');
+    const toggle = document.getElementById('chat-toggle');
+    const closeBtn = document.getElementById('chat-close');
+    const form = document.getElementById('chat-form');
+    const input = document.getElementById('chat-input');
+    const messages = document.getElementById('chat-messages');
+    const quickEl = document.getElementById('chat-quick');
+    const navOpen = document.getElementById('nav-open-chat');
+
+    function openChat() {
+      panel.classList.add('open');
+      panel.setAttribute('aria-hidden', 'false');
+      toggle.setAttribute('aria-expanded', 'true');
+      input.focus();
+    }
+    function closeChat() {
+      panel.classList.remove('open');
+      panel.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.focus();
+    }
+
+    function appendMsg(html, role) {
+      const div = document.createElement('div');
+      div.className = 'chat-msg ' + role;
+      div.innerHTML = html;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function showTyping() {
+      const div = document.createElement('div');
+      div.className = 'chat-typing';
+      div.id = 'chat-typing-indicator';
+      div.innerHTML = '<span></span><span></span><span></span>';
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+      return div;
+    }
+
+    function botWelcome() {
+      messages.innerHTML = '';
+      const disc = document.createElement('div');
+      disc.className = 'chat-disclaimer';
+      disc.textContent = 'Offline assistant — answers reflect this site only, not live web data.';
+      messages.appendChild(disc);
+      appendMsg('Ask about <strong>Nancy’s profile</strong> (role, stack, projects, education) or <strong>interviewer-style questions</strong>. I’ll suggest concise talking points you can practice out loud.', 'bot');
+    }
+
+    QUICK_PROMPTS.forEach(text => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chat-chip';
+      b.textContent = text;
+      b.addEventListener('click', () => {
+        input.value = text;
+        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      });
+      quickEl.appendChild(b);
+    });
+
+    botWelcome();
+
+    toggle.addEventListener('click', openChat);
+    closeBtn.addEventListener('click', closeChat);
+    if (navOpen) navOpen.addEventListener('click', (e) => { e.preventDefault(); openChat(); });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = (input.value || '').trim();
+      if (!q) return;
+      appendMsg(q.replace(/</g, '&lt;'), 'user');
+      input.value = '';
+      const typing = showTyping();
+      setTimeout(() => {
+        typing.remove();
+        appendMsg(composeReply(q), 'bot');
+      }, 450 + Math.random() * 350);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.classList.contains('open')) closeChat();
+    });
+  })();
+</script>
+<script src="./Nancy Pareta — Lead Data Engineer_files/design.js"></script>
+
+
+</body></html>
